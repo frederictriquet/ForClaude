@@ -2,6 +2,23 @@
 
 A ready-to-use starter pack for integrating Claude Code into your projects, complete with custom agents, slash commands, and best practices for AI-assisted development.
 
+## Quick Reference
+
+### Slash Commands
+| Command | Description |
+|---------|-------------|
+| `/commit` | Review changes and create a well-formatted commit |
+| `/amend` | Amend the last commit with current changes |
+| `/status` | Check repository status |
+| `/push` | Push changes to remote repository |
+
+### Custom Agents
+| Agent | Purpose |
+|-------|---------|
+| `agent-creator` | Designs and generates clear, effective AI agent definitions |
+| `tech-stack-advisor` | Analyzes requirements and recommends optimal technologies |
+| `svelte-specialist` | Builds modern web applications with Svelte and SvelteKit |
+
 ## What's Inside
 
 This starter pack provides a curated collection of tools and configurations to enhance your Claude Code experience:
