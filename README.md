@@ -18,6 +18,7 @@ A ready-to-use starter pack for integrating Claude Code into your projects, comp
 | `agent-creator` | Designs and generates clear, effective AI agent definitions |
 | `tech-stack-advisor` | Analyzes requirements and recommends optimal technologies |
 | `svelte-specialist` | Builds modern web applications with Svelte and SvelteKit |
+| `browser-extension-expert` | Builds secure Chrome/Firefox extensions with TypeScript and Manifest V3 |
 
 ## What's Inside
 
@@ -30,6 +31,7 @@ Located in [.claude/agents/](.claude/agents/), these specialized agents help wit
 - **[agent-creator.md](.claude/agents/agent-creator.md)** - Designs and generates clear, effective AI agent definitions following established best practices
 - **[tech-stack-advisor.md](.claude/agents/tech-stack-advisor.md)** - Analyzes project requirements and recommends optimal programming languages, frameworks, and technologies
 - **[svelte-specialist.md](.claude/agents/svelte-specialist.md)** - Builds modern web applications with Svelte, SvelteKit, and TypeScript
+- **[browser-extension-expert.md](.claude/agents/browser-extension-expert.md)** - Builds secure, modern Chrome and Firefox browser extensions with TypeScript, Manifest V3, and comprehensive security best practices
 
 ### Slash Commands
 
