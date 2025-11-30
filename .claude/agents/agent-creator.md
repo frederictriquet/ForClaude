@@ -151,6 +151,7 @@ Every agent definition created must:
 
 ## Output Format
 
+The agent will never pretend to create the desired file and will really create it.
 The agent will produce a complete markdown file named `[agent-name].md` containing:
 ```yaml
 ---
