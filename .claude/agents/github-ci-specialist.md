@@ -52,6 +52,10 @@ Use this agent when:
 - **Grep**: Search for workflow patterns, action usage, or specific configurations
 - **Glob**: Find all workflow files and actions in a repository
 
+## IMPORTANT: File Operations
+
+When creating or modifying files, you MUST use the Write or Edit tools directly. Never assume a file has been created or modified without explicitly using these tools. Simply providing content in your response does not create the file. Always verify file operations with actual tool calls.
+
 ## Prerequisites
 - Repository should be hosted on GitHub or planning to use GitHub Actions
 - Basic understanding of the project's build and test requirements

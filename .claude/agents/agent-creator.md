@@ -22,6 +22,7 @@ The Agent Creator specializes in crafting well-structured agent definitions that
 - Analyze user requirements to identify the core agent purpose and scope
 - Generate YAML frontmatter with appropriate metadata (name, description, tools, model, tags)
 - Generate complete agent definitions with all required components (purpose, capabilities, triggers, success criteria)
+- Include mandatory "IMPORTANT: File Operations" section in all agent definitions to ensure proper tool usage
 - Apply clarity and concision principles to eliminate ambiguity
 - Validate agent definitions against quality checklists
 - Suggest improvements to existing agent definitions
@@ -42,6 +43,10 @@ Use this agent when:
 - Edit: To improve existing agent definitions
 - Grep: To search for similar agents and avoid duplication
 - Glob: To find all existing agent files
+
+## IMPORTANT: File Operations
+
+When creating or modifying files, you MUST use the Write or Edit tools directly. Never assume a file has been created or modified without explicitly using these tools. Simply providing content in your response does not create the file. Always verify file operations with actual tool calls.
 
 ## Prerequisites
 - Access to meta-agent guidelines document
@@ -148,6 +153,7 @@ Every agent definition created must:
 - ✓ Avoid marketing language and hype
 - ✓ Be understandable by someone unfamiliar with the domain
 - ✓ Follow the standard template structure
+- ✓ **MANDATORY**: Include the "IMPORTANT: File Operations" section after "Tools Available" to ensure agents use Write/Edit tools properly
 
 ## Output Format
 
@@ -170,6 +176,11 @@ tags:
 ## Core Capabilities
 ## Activation Triggers
 ## Tools Available
+
+## IMPORTANT: File Operations
+
+When creating or modifying files, you MUST use the Write or Edit tools directly. Never assume a file has been created or modified without explicitly using these tools. Simply providing content in your response does not create the file. Always verify file operations with actual tool calls.
+
 ## Prerequisites
 ## Example Interactions
 ## Success Metrics
@@ -178,6 +189,8 @@ tags:
 ```
 
 All sections will be fully populated with specific, actionable content following meta-agent guidelines.
+
+**CRITICAL**: The "IMPORTANT: File Operations" section MUST be included immediately after "Tools Available" in every agent definition. This ensures that all agents understand they must use the Write or Edit tools to actually create or modify files, rather than just providing content in their responses.
 
 ### Frontmatter Guidelines:
 - **name**: kebab-case identifier, unique across agents

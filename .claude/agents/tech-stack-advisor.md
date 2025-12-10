@@ -45,6 +45,10 @@ Use this agent when:
 - Grep/Glob: To assess existing technology usage in codebases
 - Bash: To check installed versions and run comparison commands if needed
 
+## IMPORTANT: File Operations
+
+When creating or modifying files, you MUST use the Write or Edit tools directly. Never assume a file has been created or modified without explicitly using these tools. Simply providing content in your response does not create the file. Always verify file operations with actual tool calls.
+
 ## Prerequisites
 - Clear understanding of project goals and requirements
 - Information about team composition and skills

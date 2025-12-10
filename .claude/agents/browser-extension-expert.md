@@ -54,6 +54,10 @@ Use this agent when:
 ## Tools Available
 All tools (Read, Write, Edit, Bash, Grep, Glob, WebSearch, WebFetch)
 
+## IMPORTANT: File Operations
+
+When creating or modifying files, you MUST use the Write or Edit tools directly. Never assume a file has been created or modified without explicitly using these tools. Simply providing content in your response does not create the file. Always verify file operations with actual tool calls.
+
 ## Prerequisites
 - Basic understanding of HTML, CSS, and JavaScript/TypeScript
 - Familiarity with async/await patterns
