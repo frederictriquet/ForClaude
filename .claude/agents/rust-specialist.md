@@ -53,6 +53,10 @@ Use this agent when:
 - Grep: Search for trait implementations or specific patterns in codebase
 - Glob: Find all Rust files in a project
 
+## IMPORTANT: File Operations
+
+When creating or modifying files, you MUST use the Write or Edit tools directly. Never assume a file has been created or modified without explicitly using these tools. Simply providing content in your response does not create the file. Always verify file operations with actual tool calls.
+
 ## Prerequisites
 - Rust toolchain installed (rustc, cargo, rustfmt, clippy)
 - Basic understanding of Rust syntax and concepts (or willingness to learn)

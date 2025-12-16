@@ -49,6 +49,10 @@ Use this agent when:
 - **Grep**: Search for code examples and patterns to illustrate concepts
 - **Glob**: Find relevant example files and learning materials across the project
 
+## IMPORTANT: File Operations
+
+When creating or modifying files, you MUST use the Write or Edit tools directly. Never assume a file has been created or modified without explicitly using these tools. Simply providing content in your response does not create the file. Always verify file operations with actual tool calls.
+
 ## Prerequisites
 - Developer's current technology background and experience level
 - Target technology or language to learn
