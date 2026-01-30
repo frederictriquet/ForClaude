@@ -1,1 +1,0 @@
-Amend the last commit with current changes. First check that it's safe to amend (verify authorship and that the commit hasn't been pushed). Show the current changes and the last commit details, then amend if safe.
