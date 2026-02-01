@@ -462,6 +462,36 @@ Après quelques utilisations, vérifier :
 
 | Situation | Prochaine action |
 |-----------|------------------|
-| Fin de feature | `/pre-merge` |
+| Fin de feature | `/roadmap-update --done` (puis pre-merge) |
 | Incident résolu | `/post-mortem` |
 | Nouvelle session | Consulter les mémoires |
+
+---
+
+## 🔄 IMPORTANT : Continuité du Workflow
+
+### À la fin de cette skill, TOUJOURS :
+
+1. **Mettre à jour le workflow** :
+```
+mcp__serena__edit_memory
+  memory_file_name: "workflow-current.md"
+  → Ajouter dans Historique : /capitalize ✅
+  → Lister les mémoires créées/modifiées
+```
+
+2. **Afficher le résumé de transition** :
+```markdown
+---
+## ✅ Capitalisation Terminée
+
+**Mémoires sauvegardées** :
+- [type] : [nom-du-fichier.md]
+
+→ **Prochaine étape** : `/roadmap-update "[tâche]" --done`
+
+⚠️ **Rappel** : Marquer la tâche comme DONE avant de merger !
+
+💡 `/next` pour voir le workflow complet
+---
+```

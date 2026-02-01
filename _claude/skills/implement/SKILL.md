@@ -17,7 +17,63 @@ $ARGUMENTS
 
 ---
 
-## 0. Préparation SERENA
+## ⛔ LIMITES STRICTES DE CETTE SKILL
+
+### ✅ CE QUE CETTE SKILL FAIT
+- Écrire le code de la fonctionnalité
+- Créer les fichiers nécessaires
+- Suivre le plan d'architecture établi
+- Faire des commits incrémentaux
+- Écrire des tests unitaires basiques en parallèle
+
+### ❌ CE QUE CETTE SKILL NE FAIT PAS
+- **PAS de re-analyse** : L'analyse est faite, on implémente
+- **PAS de changement d'architecture** : Suivre le plan (sinon retour à `/architecture`)
+- **PAS de refactoring massif** : Implémenter d'abord, refactorer après
+- **PAS de documentation complète** : C'est pour `/document`
+- **PAS de debug approfondi** : Si bug complexe → `/debug`
+
+### 🛑 SI TU DÉCOUVRES UN PROBLÈME D'ARCHITECTURE
+STOP ! Note le problème et propose de revenir à `/architecture` pour ajuster.
+
+### 🛑 SI TU RENCONTRES UN BUG COMPLEXE
+STOP ! Note le bug et propose `/debug` plutôt que de partir en investigation.
+
+---
+
+---
+
+## 0. Vérification de Branche (OBLIGATOIRE)
+
+### ⚠️ AVANT D'ÉCRIRE DU CODE, vérifier la branche
+
+```bash
+git branch --show-current
+```
+
+### 🛑 STOP si sur main ou master
+
+```markdown
+⛔ **ATTENTION : Vous êtes sur la branche principale (`main` ou `master`)**
+
+Il est dangereux d'implémenter directement sur la branche principale.
+
+**Options** :
+1. Créer une branche `feature/[nom]` maintenant
+2. Retourner à `/analyze` pour démarrer proprement
+3. Confirmer explicitement vouloir rester sur main (non recommandé)
+```
+
+### Si pas de branche feature
+
+Ne pas commencer à coder avant d'avoir :
+- [ ] Vérifié la branche actuelle
+- [ ] Créé une branche feature si nécessaire
+- [ ] Confirmation de l'utilisateur
+
+---
+
+## 1. Préparation SERENA
 
 ### Consultation préalable
 
@@ -351,3 +407,39 @@ Closes #issue (si applicable)
 | Code à nettoyer | `/clean-code` |
 | Review nécessaire | `/code-review` |
 | Documentation manquante | `/document` |
+
+---
+
+## 🔄 IMPORTANT : Continuité du Workflow
+
+### À la fin de cette skill, TOUJOURS :
+
+1. **Mettre à jour le workflow** :
+```
+mcp__serena__edit_memory
+  memory_file_name: "workflow-current.md"
+  → Ajouter dans Historique : /implement ✅ (ou 🔄 si partiel)
+  → Mettre à jour "Fichiers Concernés" avec les fichiers créés/modifiés
+  → Ajouter les commits effectués
+```
+
+2. **Afficher le résumé de transition** :
+```markdown
+---
+## ✅ Implémentation Terminée (ou 🔄 En Cours)
+
+**Fichiers créés/modifiés** :
+- `path/file1.ts` - [description]
+- `path/file2.ts` - [description]
+
+**Status** : [X% complété] ou [Terminé]
+
+**Tests** : [Existent / À écrire / À exécuter]
+
+→ **Prochaine étape** : `/test-write` ou `/test-run [pattern]`
+
+💡 `/next` pour voir le workflow complet
+---
+```
+
+3. **Ne jamais terminer sans proposer** la prochaine action concrète

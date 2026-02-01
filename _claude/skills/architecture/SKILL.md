@@ -17,6 +17,29 @@ Créer un **blueprint détaillé** avant d'écrire le code. Une bonne architectu
 
 ---
 
+## ⛔ LIMITES STRICTES DE CETTE SKILL
+
+### ✅ CE QUE CETTE SKILL FAIT
+- Définir la structure des fichiers/modules
+- Dessiner les diagrammes (composants, séquence, flux)
+- Définir les interfaces et types
+- Lister les dépendances
+- Planifier l'ordre d'implémentation
+- Écrire des **signatures** de fonctions (sans corps)
+
+### ❌ CE QUE CETTE SKILL NE FAIT PAS
+- **PAS d'implémentation** : Juste les interfaces, pas le code
+- **PAS de création de fichiers** : On planifie, on ne crée pas encore
+- **PAS de tests** : On conçoit l'architecture des tests, on ne les écrit pas
+- **PAS de debug** : On n'est pas encore en train de coder
+
+### 🛑 SI TU ES TENTÉ D'IMPLÉMENTER
+STOP ! Finalise le plan d'architecture et passe à `/implement`.
+
+---
+
+---
+
 ## 0. Consultation SERENA
 
 ### Analyse de l'existant
@@ -369,3 +392,40 @@ Si des conventions architecturales nouvelles émergent :
 | Tests à écrire d'abord (TDD) | `/test-write` |
 | Décisions techniques à prendre | `/tech-choice` |
 | Besoin de plus d'exploration | `/explore-options` |
+
+---
+
+## 🔄 IMPORTANT : Continuité du Workflow
+
+### À la fin de cette skill, TOUJOURS :
+
+1. **Mettre à jour le workflow** :
+```
+mcp__serena__edit_memory
+  memory_file_name: "workflow-current.md"
+  → Ajouter dans Historique : /architecture ✅
+  → Mettre à jour "Fichiers Concernés" avec la liste des fichiers à créer/modifier
+  → Ajouter les composants clés dans "Contexte Clé"
+```
+
+2. **Afficher le résumé de transition** :
+```markdown
+---
+## ✅ Architecture Conçue
+
+**Composants** : [Liste des modules/composants]
+**Fichiers à créer** : [Nombre]
+**Pattern principal** : [Pattern utilisé]
+
+→ **Prochaine étape** : `/implement [feature]` ou `/test-write` (si TDD)
+
+**Plan d'implémentation suggéré** :
+1. [Première chose à implémenter]
+2. [Deuxième chose]
+3. ...
+
+💡 `/next` pour voir le workflow complet
+---
+```
+
+3. **Fournir un plan d'implémentation** concret pour faciliter la suite

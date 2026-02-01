@@ -17,6 +17,27 @@ Créer une **suite de tests complète** qui garantit le bon fonctionnement et pr
 
 ---
 
+## ⛔ LIMITES STRICTES DE CETTE SKILL
+
+### ✅ CE QUE CETTE SKILL FAIT
+- Écrire des tests (unit, integration, e2e)
+- Créer des fixtures et mocks
+- Définir les cas de test
+- Configurer le framework de test si nécessaire
+
+### ❌ CE QUE CETTE SKILL NE FAIT PAS
+- **PAS de correction de code** : Si un test échoue → `/debug`
+- **PAS d'implémentation de features** : On teste l'existant
+- **PAS d'exécution complète** : C'est pour `/test-run`
+- **PAS de refactoring** : Écrire les tests, pas changer le code
+
+### 🛑 SI UN TEST RÉVÈLE UN BUG
+STOP ! Note le bug et propose `/debug`. N'essaie pas de corriger dans cette skill.
+
+---
+
+---
+
 ## 0. Consultation SERENA
 
 ### Analyse préalable

@@ -436,3 +436,43 @@ Si pas fait automatiquement :
 | Problème en prod | `/debug` puis `/post-mortem` |
 | Retour d'expérience | `/capitalize` |
 | Incident | `/post-mortem` |
+
+---
+
+## 🔄 IMPORTANT : Finalisation du Workflow
+
+### Prérequis avant d'utiliser cette skill
+
+⚠️ **Le merge est la DERNIÈRE étape !** Vérifier que ces skills ont été exécutées :
+
+- [ ] `/code-review` - Code relu et approuvé
+- [ ] `/document` - Documentation à jour
+- [ ] `/capitalize` - Apprentissages sauvegardés
+- [ ] `/roadmap-update --done` - Tâche marquée comme terminée
+
+### À la fin de cette skill, TOUJOURS :
+
+1. **Mettre à jour le workflow** :
+```
+mcp__serena__edit_memory
+  memory_file_name: "workflow-current.md"
+  → Marquer /pre-merge ✅
+  → Marquer le workflow comme TERMINÉ
+  → Ajouter le numéro de PR dans "Contexte Clé"
+```
+
+2. **Afficher le résumé de transition** :
+```markdown
+---
+## ✅ Merge Effectué - Workflow Terminé !
+
+**PR** : #[numéro] - [titre]
+**Status** : Mergée ✅
+
+🎉 **Félicitations !** Le cycle de développement est complet.
+
+→ **Prochaine étape optionnelle** : `/post-mortem --session` si fin de sprint ou feature majeure
+
+💡 `/next --reset` pour démarrer une nouvelle tâche
+---
+```

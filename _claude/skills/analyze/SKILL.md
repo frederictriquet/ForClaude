@@ -17,7 +17,89 @@ Comprendre **complètement** le problème avant de proposer une solution. Cette 
 
 ---
 
-## 0. Consultation SERENA
+## ⛔ LIMITES STRICTES DE CETTE SKILL
+
+### ✅ CE QUE CETTE SKILL FAIT
+- Comprendre et reformuler le besoin
+- Identifier les contraintes et le contexte
+- Lister les fichiers/modules concernés
+- Définir le périmètre (IN/OUT)
+- Poser des questions de clarification
+
+### ❌ CE QUE CETTE SKILL NE FAIT PAS
+- **PAS de code** : Ne pas écrire de code, même "pour illustrer"
+- **PAS de debug** : Ne pas corriger de bugs découverts
+- **PAS d'implémentation** : Ne pas commencer à implémenter
+- **PAS de choix technique définitif** : Juste identifier les options
+- **PAS de modifications de fichiers** : Lecture seule
+
+### 🛑 SI TU ES TENTÉ DE CODER
+STOP ! Note le besoin et passe à `/explore-options` ou `/implement` après.
+
+---
+
+---
+
+## 0. Vérification de Branche
+
+### Avant toute analyse, vérifier la branche courante
+
+```bash
+git branch --show-current
+git status
+```
+
+### Règles de branche
+
+| Branche actuelle | Action |
+|------------------|--------|
+| `main` ou `master` | ⚠️ **Proposer de créer une nouvelle branche** |
+| `develop` | ⚠️ Selon les conventions du projet |
+| `feature/*`, `fix/*` | ✅ OK si correspond à la tâche |
+| Autre | Vérifier si appropriée |
+
+### Détection de la branche principale
+
+```bash
+# La branche principale peut être main OU master
+git branch --show-current
+# Si résultat = "main" ou "master" → proposer nouvelle branche
+```
+
+### Si sur main ou master, proposer :
+
+```markdown
+⚠️ **Vous êtes sur la branche principale (`main` ou `master`)**
+
+Pour cette feature, je recommande de créer une nouvelle branche :
+
+**Nom suggéré** : `feature/[nom-court-de-la-feature]`
+
+Voulez-vous :
+1. Créer la branche `feature/[suggestion]` et y basculer
+2. Créer une branche avec un autre nom
+3. Rester sur `main` (non recommandé)
+```
+
+### Création de branche
+
+```bash
+# Si l'utilisateur accepte
+git checkout -b feature/[nom-de-la-feature]
+```
+
+### Conventions de nommage
+
+| Type | Format | Exemple |
+|------|--------|---------|
+| Feature | `feature/[description]` | `feature/oauth-login` |
+| Bugfix | `fix/[description]` | `fix/null-token-error` |
+| Refactor | `refactor/[description]` | `refactor/auth-module` |
+| Hotfix | `hotfix/[description]` | `hotfix/security-patch` |
+
+---
+
+## 1. Consultation SERENA
 
 ### Avant toute analyse
 
@@ -205,3 +287,63 @@ Selon la complexité :
 | Une seule solution évidente mais technique | `/tech-choice` |
 | Architecture à concevoir | `/architecture` |
 | Solution simple et claire | `/implement` |
+
+---
+
+## 🔄 IMPORTANT : Mise à Jour du Workflow
+
+### À la fin de cette skill, TOUJOURS :
+
+1. **Créer/Mettre à jour le workflow** dans SERENA :
+
+```
+mcp__serena__write_memory
+  memory_file_name: "workflow-current.md"
+  content: |
+    # Workflow Actif
+
+    ## Tâche
+    [Description de la tâche analysée]
+
+    ## Objectif
+    [Objectif clair identifié]
+
+    ## Démarré
+    [Date/heure actuelle]
+
+    ## Historique
+    | Timestamp | Skill | Status | Notes |
+    |-----------|-------|--------|-------|
+    | [maintenant] | /analyze | ✅ | [résumé en 5 mots] |
+
+    ## Phase Actuelle
+    /analyze ✅
+
+    ## Contexte Clé
+    - [Point clé 1 de l'analyse]
+    - [Point clé 2]
+    - [Contraintes identifiées]
+
+    ## Prochaine Étape
+    /[skill suggérée]
+```
+
+2. **Afficher clairement la transition** :
+
+```markdown
+---
+## ✅ Analyse Terminée
+
+**Résumé** : [1 phrase résumant l'analyse]
+
+**Contexte clé retenu** :
+- [Point 1]
+- [Point 2]
+
+→ **Prochaine étape recommandée** : `/[skill]` [arguments]
+
+💡 Tapez `/next` à tout moment pour voir le status du workflow
+---
+```
+
+3. **Proposer explicitement** de lancer la prochaine skill

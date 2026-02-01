@@ -17,6 +17,28 @@ Identifier les problèmes **avant** qu'ils n'arrivent en production, tout en fou
 
 ---
 
+## ⛔ LIMITES STRICTES DE CETTE SKILL
+
+### ✅ CE QUE CETTE SKILL FAIT
+- Lire et analyser le code
+- Identifier les problèmes (bugs, sécurité, performance)
+- Fournir du feedback constructif
+- Suggérer des améliorations
+- Valider ou demander des changements
+
+### ❌ CE QUE CETTE SKILL NE FAIT PAS
+- **PAS de corrections directes** : L'auteur corrige, pas le reviewer
+- **PAS d'implémentation** : On review, on n'écrit pas
+- **PAS de refactoring** : Suggérer, pas faire
+- **PAS de merge** : C'est le rôle de `/pre-merge`
+
+### 🛑 SI TU ES TENTÉ DE CORRIGER DIRECTEMENT
+STOP ! Note le feedback et laisse l'auteur corriger. Ou propose `/debug` si c'est ton code.
+
+---
+
+---
+
 ## 0. Consultation SERENA
 
 ### Contexte du projet
@@ -353,8 +375,42 @@ mcp__serena__write_memory
 
 | Verdict | Prochaine skill |
 |---------|-----------------|
-| ✅ Approuvé | `/pre-merge` |
+| ✅ Approuvé | `/document` (puis capitalize → roadmap → merge) |
 | 🔄 Changements requis | Auteur corrige → Re-review |
 | Problèmes de tests | `/test-write` ou `/test-run` |
 | Bugs trouvés | `/debug` |
 | Architecture à revoir | `/architecture` |
+
+---
+
+## 🔄 IMPORTANT : Continuité du Workflow
+
+### À la fin de cette skill, TOUJOURS :
+
+1. **Mettre à jour le workflow** :
+```
+mcp__serena__edit_memory
+  memory_file_name: "workflow-current.md"
+  → Ajouter dans Historique : /code-review [✅|🔄|❌]
+  → Noter les points importants de la review
+```
+
+2. **Afficher le résumé de transition** :
+```markdown
+---
+## [✅|🔄|❌] Code Review Terminée
+
+**Verdict** : [Approuvé / Changements requis / Rejeté]
+**Points clés** :
+- [Point 1]
+- [Point 2]
+
+→ **Prochaine étape** :
+  - Si ✅ : `/document` pour documenter avant de merger
+  - Si 🔄 : Corriger puis re-review
+
+⚠️ **Rappel** : Le merge arrive APRÈS documentation, capitalisation et roadmap
+
+💡 `/next` pour voir le workflow complet
+---
+```

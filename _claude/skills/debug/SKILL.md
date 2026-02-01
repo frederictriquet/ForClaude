@@ -17,6 +17,32 @@ Identifier la **cause racine** du bug et le corriger de manière durable, pas ju
 
 ---
 
+## ⛔ LIMITES STRICTES DE CETTE SKILL
+
+### ✅ CE QUE CETTE SKILL FAIT
+- Reproduire le bug
+- Analyser les logs et stack traces
+- Isoler la cause racine
+- Corriger le bug spécifique
+- Ajouter un test de régression
+
+### ❌ CE QUE CETTE SKILL NE FAIT PAS
+- **PAS de refactoring** : Corriger le bug, pas réécrire le module
+- **PAS de nouvelles features** : Corriger, pas améliorer
+- **PAS de changement d'architecture** : Fix minimal
+- **PAS d'optimisation** : Corriger le comportement, pas la performance
+- **PAS de documentation générale** : Juste documenter le bug si complexe
+
+### 🛑 SI TU ES TENTÉ DE REFACTORER
+STOP ! Corrige le bug minimalement. Propose `/refactor` après si nécessaire.
+
+### 🛑 SI LE BUG RÉVÈLE UN PROBLÈME D'ARCHITECTURE
+STOP ! Note le problème, corrige le symptôme, et propose `/architecture` pour une vraie solution.
+
+---
+
+---
+
 ## 0. Consultation SERENA
 
 ### Recherche de contexte

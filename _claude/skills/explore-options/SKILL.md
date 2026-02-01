@@ -17,6 +17,29 @@ Identifier **TOUTES** les approches viables avant de choisir. Évite de se verro
 
 ---
 
+## ⛔ LIMITES STRICTES DE CETTE SKILL
+
+### ✅ CE QUE CETTE SKILL FAIT
+- Lister les différentes options possibles
+- Rechercher des bibliothèques/solutions existantes
+- Comparer les avantages/inconvénients
+- Créer une matrice de décision
+- Faire un mini PoC **si vraiment nécessaire** (max 10 lignes)
+
+### ❌ CE QUE CETTE SKILL NE FAIT PAS
+- **PAS d'implémentation complète** : Juste explorer
+- **PAS de décision finale** : C'est le rôle de `/tech-choice`
+- **PAS de modifications de fichiers** : Lecture et recherche seulement
+- **PAS de tests** : On explore, on n'implémente pas
+- **PAS de refactoring** : On ne touche pas au code existant
+
+### 🛑 SI TU ES TENTÉ DE CHOISIR ET IMPLÉMENTER
+STOP ! Documente les options trouvées et passe à `/tech-choice`.
+
+---
+
+---
+
 ## 0. Consultation SERENA
 
 ### Recherche préalable
@@ -244,3 +267,35 @@ mcp__serena__write_memory
 | Besoin de PoC | Implémenter le PoC puis revenir |
 | Architecture complexe nécessaire | `/architecture` |
 | Option simple et claire | `/implement` |
+
+---
+
+## 🔄 IMPORTANT : Continuité du Workflow
+
+### À la fin de cette skill, TOUJOURS :
+
+1. **Mettre à jour le workflow** :
+```
+mcp__serena__edit_memory
+  memory_file_name: "workflow-current.md"
+  → Ajouter dans Historique : /explore-options ✅
+  → Mettre à jour "Contexte Clé" avec les options évaluées
+  → Définir "Prochaine Étape"
+```
+
+2. **Afficher le résumé de transition** :
+```markdown
+---
+## ✅ Exploration Terminée
+
+**Options évaluées** : [nombre]
+**Recommandation** : [Option retenue]
+**Justification** : [1 phrase]
+
+→ **Prochaine étape** : `/tech-choice [sujet]` pour documenter la décision
+
+💡 `/next` pour voir le workflow complet
+---
+```
+
+3. **Proposer explicitement** la prochaine commande à exécuter

@@ -36,25 +36,64 @@ Ce projet dispose d'un ensemble de **14 skills atomiques** couvrant tout le cycl
 
 | Ordre | Skill | Quand l'utiliser |
 |-------|-------|------------------|
-| 12 | `/capitalize` | Sauvegarder un apprentissage |
-| 13 | `/post-mortem` | Analyser un incident/session |
+| 12 | `/roadmap-update` | Mettre à jour le statut d'une tâche |
+| 13 | `/capitalize` | Sauvegarder un apprentissage |
+| 14 | `/post-mortem` | Analyser un incident/session |
 
 ### Skills Utilitaires
 
+- `/next` - **Rappeler le contexte et proposer la suite** (NOUVEAU)
 - `/clean-code` - Nettoyer le code
 - `/refactor` - Refactoriser
 - `/explain-code` - Expliquer du code
 - `/fix-issue` - Corriger une issue GitHub
 
+## Continuité du Workflow
+
+### Utilisation de `/next`
+
+| Commande | Usage |
+|----------|-------|
+| `/next` | Voir le contexte et la prochaine étape |
+| `/next --status` | Voir le status détaillé du workflow |
+| `/next --reset` | Réinitialiser pour une nouvelle tâche |
+
+### Tracking automatique
+
+Chaque skill met à jour `workflow-current.md` dans SERENA avec :
+- L'historique des skills exécutées
+- Le contexte clé (décisions, fichiers, blocages)
+- La prochaine étape suggérée
+
 ## Transitions Recommandées
 
 ```
-/analyze → /explore-options → /tech-choice → /architecture → /implement
-                                                                  ↓
-/pre-merge ← /code-review ← /debug ← /test-run ← /test-write ← ┘
-     ↓
-/document → /capitalize → /post-mortem (si incident)
+/analyze → /explore-options → /tech-choice 
+                                    ↓
+                        /roadmap-update --in-progress
+                                    ↓
+                            /architecture → /implement
+                                                  ↓
+         /test-write ← /test-run ← /debug ← /code-review
+                                                  ↓
+                                            /document
+                                                  ↓
+                                           /capitalize
+                                                  ↓
+                                    /roadmap-update --done
+                                                  ↓
+                                           /pre-merge ← MERGE EN DERNIER !
+                                                  ↓
+                                         /post-mortem (si incident)
 ```
+
+### Ordre de finalisation (après code-review)
+
+⚠️ **Le merge arrive EN DERNIER** :
+1. `/document` - Documenter
+2. `/capitalize` - Sauvegarder les apprentissages  
+3. `/roadmap-update --done` - Marquer comme terminé
+4. `/pre-merge` - Merger
 
 ## Intégration SERENA
 
@@ -93,9 +132,35 @@ mcp__serena__write_memory
 | `--pr` | pre-merge | Créer une PR |
 | `--blameless` | post-mortem | Sans blame |
 
+## Gestion de la Roadmap
+
+| Moment | Commande |
+|--------|----------|
+| Début de tâche | `/roadmap-update [tâche] --in-progress` |
+| Blocage rencontré | `/roadmap-update [tâche] --blocked "[raison]"` |
+| Fin de tâche | `/roadmap-update [tâche] --done` |
+
+## Gestion des Branches
+
+### Vérification obligatoire au début du workflow
+
+| Si sur... | Action |
+|-----------|--------|
+| `main` ou `master` | Créer une branche feature |
+| `develop` | Selon conventions |
+| `feature/xxx` | ✅ OK |
+
+### Conventions de nommage
+
+- `feature/[description]` - Nouvelles fonctionnalités
+- `fix/[description]` - Corrections de bugs
+- `refactor/[description]` - Refactoring
+
 ## Bonnes Pratiques
 
-1. **Toujours consulter SERENA** avant de commencer
+1. **Vérifier la branche** avant de coder
+2. **Toujours consulter SERENA** avant de commencer
 2. **Suivre les transitions** suggérées par chaque skill
-3. **Capitaliser systématiquement** les découvertes
-4. **Utiliser les flags** appropriés pour adapter le comportement
+3. **Mettre à jour la roadmap** au début et à la fin de chaque tâche
+4. **Capitaliser systématiquement** les découvertes
+5. **Utiliser les flags** appropriés pour adapter le comportement

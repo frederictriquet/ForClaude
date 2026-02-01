@@ -12,42 +12,61 @@ Chaque skill suit le **Single Responsibility Principle** :
 ## Workflow Typique
 
 ```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                         CYCLE DE DÉVELOPPEMENT                          │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│  ┌──────────┐     ┌─────────────────┐     ┌──────────────┐             │
-│  │ /analyze │ ──▶ │ /explore-options│ ──▶ │ /tech-choice │             │
-│  └──────────┘     └─────────────────┘     └──────────────┘             │
-│       │                                          │                      │
-│       │         ┌────────────────────────────────┘                      │
-│       ▼         ▼                                                       │
-│  ┌──────────────────┐                                                   │
-│  │   /architecture  │                                                   │
-│  └──────────────────┘                                                   │
-│            │                                                            │
-│            ▼                                                            │
-│  ┌──────────────────┐     ┌──────────────┐     ┌─────────────┐         │
-│  │   /implement     │ ◀──▶│ /test-write  │ ──▶ │  /test-run  │         │
-│  └──────────────────┘     └──────────────┘     └─────────────┘         │
-│            │                                          │                 │
-│            │                    ┌─────────────────────┘                 │
-│            ▼                    ▼                                       │
-│  ┌──────────────────┐     ┌──────────┐                                 │
-│  │   /code-review   │ ◀── │  /debug  │                                 │
-│  └──────────────────┘     └──────────┘                                 │
-│            │                                                            │
-│            ▼                                                            │
-│  ┌──────────────────┐     ┌──────────────┐     ┌─────────────┐         │
-│  │   /pre-merge     │ ──▶ │  /document   │ ──▶ │ /capitalize │         │
-│  └──────────────────┘     └──────────────┘     └─────────────┘         │
-│            │                                                            │
-│            ▼                                                            │
-│  ┌──────────────────┐                                                   │
-│  │  /post-mortem    │  (si incident ou fin de sprint)                   │
-│  └──────────────────┘                                                   │
-│                                                                         │
-└─────────────────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                          CYCLE DE DÉVELOPPEMENT                              │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  ┌──────────┐     ┌─────────────────┐     ┌──────────────┐                   │
+│  │ /analyze │ ──▶ │ /explore-options│ ──▶ │ /tech-choice │                   │
+│  └──────────┘     └─────────────────┘     └──────────────┘                   │
+│       │                                          │                           │
+│       │  ┌───────────────────┐   ┌───────────────┘                           │
+│       └▶ │ /roadmap-update   │ ◀─┘                                           │
+│          │  --in-progress    │                                               │
+│          └─────────┬─────────┘                                               │
+│                    ▼                                                         │
+│          ┌──────────────────┐                                                │
+│          │   /architecture  │                                                │
+│          └──────────────────┘                                                │
+│                    │                                                         │
+│                    ▼                                                         │
+│          ┌──────────────────┐     ┌──────────────┐     ┌─────────────┐       │
+│          │   /implement     │ ◀──▶│ /test-write  │ ──▶ │  /test-run  │       │
+│          └──────────────────┘     └──────────────┘     └─────────────┘       │
+│                    │                                          │              │
+│                    │                    ┌─────────────────────┘              │
+│                    ▼                    ▼                                    │
+│          ┌──────────────────┐     ┌──────────┐                               │
+│          │   /code-review   │ ◀── │  /debug  │                               │
+│          └──────────────────┘     └──────────┘                               │
+│                    │                                                         │
+│                    ▼                                                         │
+│          ┌──────────────────┐                                                │
+│          │    /document     │                                                │
+│          └──────────────────┘                                                │
+│                    │                                                         │
+│                    ▼                                                         │
+│          ┌──────────────────┐                                                │
+│          │   /capitalize    │                                                │
+│          └──────────────────┘                                                │
+│                    │                                                         │
+│                    ▼                                                         │
+│          ┌───────────────────┐                                               │
+│          │ /roadmap-update   │                                               │
+│          │     --done        │                                               │
+│          └─────────┬─────────┘                                               │
+│                    │                                                         │
+│                    ▼                                                         │
+│          ┌──────────────────┐                                                │
+│          │   /pre-merge     │  ← Le merge arrive EN DERNIER                  │
+│          └──────────────────┘                                                │
+│                    │                                                         │
+│                    ▼                                                         │
+│          ┌──────────────────┐                                                │
+│          │  /post-mortem    │  (si incident ou fin de sprint)                │
+│          └──────────────────┘                                                │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ## Skills Disponibles
@@ -78,21 +97,62 @@ Chaque skill suit le **Single Responsibility Principle** :
 | `/document` | Documente le code | `--api`, `--readme`, `--inline` |
 | `/pre-merge` | Prépare le merge | `--pr`, `--squash` |
 
-### Phase de Capitalisation
+### Phase de Capitalisation et Suivi
 
 | Skill | Description | Flags |
 |-------|-------------|-------|
+| `/roadmap-update` | Met à jour le statut dans la roadmap | `--done`, `--in-progress`, `--blocked` |
 | `/capitalize` | Capitalise les apprentissages | `--pattern`, `--adr`, `--bug`, `--standard` |
 | `/post-mortem` | Analyse un incident/session | `--incident`, `--session`, `--blameless` |
 
-### Skills Existantes
+### Skills Utilitaires
 
-| Skill | Description |
-|-------|-------------|
-| `/clean-code` | Nettoie et améliore la maintenabilité |
-| `/refactor` | Refactorise sans changer le comportement |
-| `/explain-code` | Explique du code avec des analogies |
-| `/fix-issue` | Corrige une issue GitHub |
+| Skill | Description | Flags |
+|-------|-------------|-------|
+| `/next` | **Rappelle le contexte et propose la prochaine étape** | `--status`, `--reset` |
+| `/clean-code` | Nettoie et améliore la maintenabilité | `--audit-all` |
+| `/refactor` | Refactorise sans changer le comportement | - |
+| `/explain-code` | Explique du code avec des analogies | - |
+| `/fix-issue` | Corrige une issue GitHub | - |
+
+## Continuité du Workflow
+
+### Problème résolu
+
+Sur des processus longs, il est facile de perdre le fil. Les skills intègrent maintenant :
+
+1. **Tracking automatique** : Chaque skill met à jour `workflow-current.md` dans SERENA
+2. **Transitions explicites** : Chaque skill propose clairement la prochaine étape
+3. **Skill `/next`** : Rappelle le contexte et suggère la suite à tout moment
+
+### Utilisation de `/next`
+
+```bash
+# Voir où on en est
+/next --status
+
+# Reprendre le workflow (affiche contexte + suggestion)
+/next
+
+# Réinitialiser pour une nouvelle tâche
+/next --reset
+```
+
+### Exemple de rappel automatique
+
+Après chaque skill, vous verrez :
+
+```
+---
+## ✅ [Skill] Terminée
+
+**Résumé** : [Ce qui a été fait]
+
+→ **Prochaine étape** : `/[skill]` [arguments]
+
+💡 `/next` pour voir le workflow complet
+---
+```
 
 ## Intégration SERENA
 
@@ -128,11 +188,13 @@ Chaque skill suit le **Single Responsibility Principle** :
 
 ## Exemples d'Utilisation
 
-### Nouvelle fonctionnalité
+### Nouvelle fonctionnalité (workflow complet)
 
 ```
 /analyze ajouter l'authentification OAuth
+  → Vérifie la branche (propose feature/oauth-login)
   → Comprend le besoin, identifie les contraintes
+  → Crée la branche si accepté
 
 /explore-options OAuth pour l'authentification
   → Compare OAuth providers, stratégies
@@ -140,10 +202,14 @@ Chaque skill suit le **Single Responsibility Principle** :
 /tech-choice utilisation de Auth0
   → Documente la décision dans un ADR
 
+/roadmap-update "Authentification OAuth" --in-progress
+  → Marque la tâche comme en cours
+
 /architecture module d'authentification OAuth
   → Conçoit la structure, les interfaces
 
 /implement auth-module --tdd
+  → Vérifie qu'on est sur la bonne branche
   → Implémente avec tests en premier
 
 /test-run auth --coverage
@@ -152,11 +218,17 @@ Chaque skill suit le **Single Responsibility Principle** :
 /code-review auth-module --security
   → Review avec focus sécurité
 
-/pre-merge auth-feature --pr
-  → Prépare la PR
+/document auth-module --api
+  → Documente l'API et le module
 
 /capitalize OAuth integration --pattern
-  → Documente le pattern pour réutilisation
+  → Sauvegarde le pattern pour réutilisation
+
+/roadmap-update "Authentification OAuth" --done
+  → Marque la tâche comme terminée ✅
+
+/pre-merge auth-feature --pr
+  → Crée la PR et merge (DERNIÈRE ÉTAPE)
 ```
 
 ### Correction de bug
@@ -173,6 +245,16 @@ Chaque skill suit le **Single Responsibility Principle** :
 
 /capitalize email case sensitivity bug --bug
   → Documente pour éviter la récurrence
+
+/roadmap-update "Fix email case sensitivity" --done
+  → Met à jour la roadmap
+```
+
+### Gestion de blocage
+
+```
+/roadmap-update "Déploiement prod" --blocked "En attente validation sécurité"
+  → Documente le blocage avec la raison
 ```
 
 ### Après un incident
@@ -184,9 +266,61 @@ Chaque skill suit le **Single Responsibility Principle** :
 
 ## Bonnes Pratiques
 
+### Respecter les limites de chaque skill
+
+⚠️ **Chaque skill a un scope strict**. Ne pas digresser :
+
+| Pendant... | Ne pas faire... | À la place... |
+|------------|-----------------|---------------|
+| `/analyze` | Coder | Noter et passer à `/implement` |
+| `/explore-options` | Implémenter complètement | Mini-PoC max, puis `/tech-choice` |
+| `/architecture` | Créer les fichiers | Planifier, puis `/implement` |
+| `/implement` | Refactorer tout | Implémenter, puis `/refactor` |
+| `/debug` | Refactorer | Fix minimal, puis `/refactor` |
+| `/code-review` | Corriger le code | Feedback, l'auteur corrige |
+| `/document` | Modifier le code | Documenter, suggérer `/refactor` |
+
+### Vérifier la branche au début
+
+⚠️ **Toujours vérifier qu'on est sur la bonne branche avant d'implémenter** :
+
+| Si sur... | Action |
+|-----------|--------|
+| `main` ou `master` | Créer une branche `feature/xxx` |
+| `develop` | Selon les conventions du projet |
+| `feature/xxx`, `fix/xxx` | ✅ OK si correspond à la tâche |
+
+**Conventions de nommage** :
+- `feature/[description]` - Nouvelles fonctionnalités
+- `fix/[description]` - Corrections de bugs
+- `refactor/[description]` - Refactoring
+- `hotfix/[description]` - Correctifs urgents
+
 ### Utiliser les transitions
 
 Chaque skill suggère la prochaine étape. Suivre ces transitions assure un workflow cohérent.
+
+### Mettre à jour la roadmap
+
+- **Au début** : `/roadmap-update [tâche] --in-progress`
+- **En cas de blocage** : `/roadmap-update [tâche] --blocked "[raison]"`
+- **Avant le merge** : `/roadmap-update [tâche] --done`
+
+### Ordre de finalisation (après code-review)
+
+⚠️ **Le merge arrive EN DERNIER** pour s'assurer que tout est documenté et capitalisé :
+
+```
+/code-review ✅
+    ↓
+/document      ← Documenter le code
+    ↓
+/capitalize    ← Sauvegarder les apprentissages
+    ↓
+/roadmap-update --done  ← Marquer comme terminé
+    ↓
+/pre-merge     ← Merger (DERNIÈRE ÉTAPE)
+```
 
 ### Capitaliser systématiquement
 
@@ -229,6 +363,10 @@ _claude/skills/
 │   └── references/
 │       └── checklist.md
 ├── document/
+│   └── SKILL.md
+├── roadmap-update/           # Gestion de roadmap
+│   └── SKILL.md
+├── next/                     # Continuité du workflow
 │   └── SKILL.md
 ├── capitalize/
 │   └── SKILL.md

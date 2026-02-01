@@ -301,3 +301,41 @@ mcp__serena__write_memory
 | ❌ Tests échouent | `/debug` |
 | 🟡 Couverture insuffisante | `/test-write` |
 | ✅ Tous les tests passent | `/code-review` ou `/pre-merge` |
+
+---
+
+## 🔄 IMPORTANT : Continuité du Workflow
+
+### À la fin de cette skill, TOUJOURS :
+
+1. **Mettre à jour le workflow** :
+```
+mcp__serena__edit_memory
+  memory_file_name: "workflow-current.md"
+  → Ajouter dans Historique : /test-run [✅|❌|🟡]
+  → Noter la couverture dans "Contexte Clé"
+  → Lister les échecs éventuels dans "Blocages"
+```
+
+2. **Afficher le résumé de transition** :
+```markdown
+---
+## [✅|❌|🟡] Tests Exécutés
+
+**Résultat** : X/Y passés (Z%)
+**Couverture** : XX%
+
+[Si échecs:]
+**Tests échoués** :
+- `test name` - [raison courte]
+
+→ **Prochaine étape** :
+  - Si ✅ : `/code-review` ou `/pre-merge --pr`
+  - Si ❌ : `/debug [test échoué]`
+  - Si 🟡 couverture basse : `/test-write [module]`
+
+💡 `/next` pour voir le workflow complet
+---
+```
+
+3. **Toujours proposer l'action suivante** en fonction du résultat des tests

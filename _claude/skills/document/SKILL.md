@@ -17,6 +17,27 @@ Créer une documentation **utile, maintenable et accessible** qui aide les déve
 
 ---
 
+## ⛔ LIMITES STRICTES DE CETTE SKILL
+
+### ✅ CE QUE CETTE SKILL FAIT
+- Écrire/mettre à jour la documentation (README, API docs, JSDoc)
+- Ajouter des commentaires de code pertinents
+- Créer des exemples d'utilisation
+- Documenter la configuration
+
+### ❌ CE QUE CETTE SKILL NE FAIT PAS
+- **PAS de code** : Documenter, pas implémenter
+- **PAS de refactoring** : Si le code est confus, suggérer `/refactor`
+- **PAS de tests** : Documenter les tests existants, pas en écrire
+- **PAS de bug fixes** : Si tu trouves un bug, note-le pour `/debug`
+
+### 🛑 SI LE CODE EST TROP CONFUS À DOCUMENTER
+STOP ! Propose `/refactor` d'abord, puis reviens documenter.
+
+---
+
+---
+
 ## 0. Consultation SERENA
 
 ### Contexte du projet
@@ -482,7 +503,37 @@ mcp__serena__write_memory
 
 | Situation | Prochaine skill |
 |-----------|-----------------|
-| Documentation complète | `/pre-merge` |
+| Documentation complète | `/capitalize` (puis roadmap → merge) |
 | Code à améliorer | `/refactor` |
 | Tests manquants | `/test-write` |
-| Capitaliser les apprentissages | `/capitalize` |
+
+---
+
+## 🔄 IMPORTANT : Continuité du Workflow
+
+### À la fin de cette skill, TOUJOURS :
+
+1. **Mettre à jour le workflow** :
+```
+mcp__serena__edit_memory
+  memory_file_name: "workflow-current.md"
+  → Ajouter dans Historique : /document ✅
+  → Lister les fichiers de documentation créés/modifiés
+```
+
+2. **Afficher le résumé de transition** :
+```markdown
+---
+## ✅ Documentation Terminée
+
+**Fichiers documentés** :
+- [fichier1] - [type de doc]
+- [fichier2] - [type de doc]
+
+→ **Prochaine étape** : `/capitalize` pour sauvegarder les apprentissages
+
+⚠️ **Rappel du flux** : document → capitalize → roadmap-update --done → pre-merge
+
+💡 `/next` pour voir le workflow complet
+---
+```
