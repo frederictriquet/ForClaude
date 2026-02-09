@@ -2,7 +2,7 @@
 
 ## Vue d'Ensemble
 
-Ce projet dispose d'un ensemble de **14 skills atomiques** couvrant tout le cycle de développement. Chaque skill suit le Single Responsibility Principle et s'intègre avec SERENA pour capitaliser les apprentissages.
+Ce projet dispose d'un ensemble de **20 skills atomiques** couvrant tout le cycle de développement. Chaque skill suit le Single Responsibility Principle et s'intègre avec SERENA pour capitaliser les apprentissages.
 
 ## Phases et Skills
 
@@ -19,8 +19,8 @@ Ce projet dispose d'un ensemble de **14 skills atomiques** couvrant tout le cycl
 
 | Ordre | Skill | Quand l'utiliser | Gate ? |
 |-------|-------|------------------|--------|
-| 5 | `/implement` | Écrire le code | - |
-| 6 | `/test-write` | Écrire les tests | - |
+| 5 | `/implement` | Écrire le code | ✅ Vérifie /architecture (recommandé) |
+| 6 | `/test-write` | Écrire les tests | ✅ Vérifie /implement |
 | 7 | `/test-run` | Exécuter et valider les tests | ✅ Vérifie /implement, /test-write |
 | 8 | `/quality-check` | Lint, formatage et checks de qualité | ✅ Vérifie /test-run |
 | 9 | `/debug` | Corriger un bug | - |
@@ -29,16 +29,16 @@ Ce projet dispose d'un ensemble de **14 skills atomiques** couvrant tout le cycl
 
 | Ordre | Skill | Quand l'utiliser | Gate ? |
 |-------|-------|------------------|--------|
-| 10 | `/code-review` | Relire le code | ✅ Vérifie /quality-check |
-| 11 | `/document` | Documenter le code/API | ✅ Vérifie /code-review ✅ |
+| 10 | `/code-review` | Relire le code | ✅ Vérifie /test-run, /quality-check |
+| 11 | `/document` | Documenter le code/API | ✅ Vérifie /test-run, /quality-check, /code-review ✅ |
 | 12 | `/pre-merge` | Préparer le merge/PR | ✅ Vérifie TOUTES les étapes |
 
 ### 4. Phase de Capitalisation
 
 | Ordre | Skill | Quand l'utiliser | Gate ? |
 |-------|-------|------------------|--------|
-| 13 | `/capitalize` | Sauvegarder un apprentissage | ✅ Vérifie /document |
-| 14 | `/roadmap-update --done` | Marquer la tâche terminée | ✅ Vérifie /capitalize |
+| 13 | `/capitalize` | Sauvegarder un apprentissage | ✅ Vérifie /test-run, /code-review, /document |
+| 14 | `/roadmap-update --done` | Marquer la tâche terminée | ✅ Vérifie /test-run, /quality-check, /code-review, /document, /capitalize |
 | 15 | `/post-mortem` | Analyser un incident/session | - |
 
 ### Skills Utilitaires
