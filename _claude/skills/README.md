@@ -367,10 +367,10 @@ Chaque skill DOIT vérifier `workflow-current.md` au début et refuser de s'exé
 | `/test-write` | `/implement` ✅, code à tester existe | ✅ OUI |
 | `/test-run` | `/implement` ✅, `/test-write` ✅ ou tests existants | ✅ OUI |
 | `/quality-check` | `/test-run` ✅ | ✅ OUI |
-| `/code-review` | `/quality-check` ✅ | ✅ OUI |
+| `/code-review` | `/test-run` ✅, `/quality-check` ✅ | ✅ OUI |
 | `/document` | `/test-run` ✅, `/quality-check` ✅, `/code-review` ✅ | ✅ OUI |
-| `/capitalize` | `/test-run` ✅, `/document` ✅ | ✅ OUI |
-| `/roadmap-update --done` | `/test-run` ✅, `/quality-check` ✅, `/capitalize` ✅ | ✅ OUI |
+| `/capitalize` | `/test-run` ✅, `/code-review` ✅, `/document` ✅ | ✅ OUI |
+| `/roadmap-update --done` | `/test-run` ✅, `/quality-check` ✅, `/code-review` ✅, `/document` ✅, `/capitalize` ✅ | ✅ OUI |
 | `/pre-merge` | TOUTES les étapes précédentes ✅ | ✅ OUI |
 
 #### 6. FORMAT STANDARD DE GATE

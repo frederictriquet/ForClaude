@@ -40,9 +40,39 @@ STOP ! Note le besoin et passe à `/explore-options` ou `/implement` après.
 
 ---
 
-## 0. Vérification de Branche
+## 0. Vérification du Workflow Existant
 
-### Avant toute analyse, vérifier la branche courante
+### Avant toute analyse, vérifier s'il y a un workflow en cours
+
+```
+mcp__serena__read_memory
+  memory_file_name: "workflow-current.md"
+```
+
+### Si un workflow existe déjà
+
+```markdown
+⚠️ **Un workflow est déjà en cours**
+
+**Tâche** : [tâche en cours]
+**Phase actuelle** : [phase]
+
+**Options** :
+1. Continuer ce workflow → `/next`
+2. Archiver et commencer un nouveau → `/next --reset` puis revenir à `/analyze`
+
+→ Que souhaitez-vous faire ?
+```
+
+### Si pas de workflow ou après reset
+
+Continuer avec la nouvelle analyse.
+
+---
+
+## 0b. Vérification de Branche
+
+### Vérifier la branche courante
 
 ```bash
 git branch --show-current

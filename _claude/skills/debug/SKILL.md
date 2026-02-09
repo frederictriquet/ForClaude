@@ -422,10 +422,51 @@ mcp__serena__write_memory
 
 ## Transition vers la prochaine phase
 
-| Situation | Prochaine skill |
-|----------|-----------------|
-| Bug corrigé, besoin de tests | `/test-write` |
-| Bug corrigé, tests passent | `/test-run` |
-| Correction complexe | `/code-review` |
-| Plusieurs bugs liés | `/post-mortem` |
-| Bug dans l'architecture | `/architecture` |
+| Situation | Prochaine skill | ⛔ INTERDIT |
+|----------|-----------------|-------------|
+| Bug corrigé, besoin de tests | `/test-write` → `/test-run` | `/code-review`, `/pre-merge` |
+| Bug corrigé, tests existants | `/test-run` | `/code-review`, `/pre-merge` |
+| Correction complexe | `/test-run` → `/quality-check` → `/code-review` | `/pre-merge` |
+| Plusieurs bugs liés | `/post-mortem` | - |
+| Bug dans l'architecture | `/architecture` → `/implement` → ... | `/pre-merge` |
+
+### ⚠️ Après /debug, TOUJOURS repasser par /test-run
+
+Même si les tests passaient avant, il faut valider que la correction n'a rien cassé.
+
+---
+
+## 🔄 IMPORTANT : Continuité du Workflow
+
+### À la fin de cette skill, TOUJOURS :
+
+1. **Mettre à jour le workflow** :
+```
+mcp__serena__edit_memory
+  memory_file_name: "workflow-current.md"
+  → Ajouter dans Historique : /debug ✅
+  → Noter le bug corrigé et sa cause racine
+  → Lister les fichiers modifiés
+```
+
+2. **Afficher le résumé de transition** :
+```markdown
+---
+## ✅ Bug Corrigé
+
+**Bug** : [Description courte]
+**Cause racine** : [Cause identifiée]
+**Correction** : [Résumé de la correction]
+
+**Fichiers modifiés** :
+- `path/file.ts` - [description]
+
+→ **Prochaine étape** : `/test-run` pour valider la correction
+
+⚠️ Après un debug, TOUJOURS repasser par /test-run avant de continuer le workflow
+
+💡 `/next` pour voir le workflow complet
+---
+```
+
+3. **Ne jamais proposer** `/code-review` ou `/pre-merge` directement après `/debug`

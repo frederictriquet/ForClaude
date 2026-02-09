@@ -495,11 +495,16 @@ Après quelques utilisations, vérifier :
 
 ## Transition
 
-| Situation | Prochaine action |
-|-----------|------------------|
-| Fin de feature | `/roadmap-update --done` (puis pre-merge) |
-| Incident résolu | `/post-mortem` |
-| Nouvelle session | Consulter les mémoires |
+| Situation | Prochaine action | ⛔ INTERDIT |
+|-----------|------------------|-------------|
+| Fin de feature | `/roadmap-update --done` | `/pre-merge` (il reste 2 étapes) |
+| Incident résolu | `/post-mortem` | - |
+| Nouvelle session | Consulter les mémoires | - |
+
+### ⛔ INTERDIT après /capitalize
+
+- **JAMAIS** proposer `/pre-merge` directement (il reste : roadmap-update → pre-merge)
+- **JAMAIS** proposer un commit comme conclusion
 
 ---
 

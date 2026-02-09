@@ -471,7 +471,46 @@ gh issue create --title "Post-mortem action: [action]" --body "[détails]"
 
 | Situation | Prochaine action |
 |-----------|------------------|
-| Actions techniques à faire | `/implement` |
+| Actions techniques à faire | `/analyze` → `/implement` |
 | Tests à ajouter | `/test-write` |
 | Documentation à créer | `/document` |
 | Nouvelle fonctionnalité à analyser | `/analyze` |
+| Fin de session, rien à faire | `/next --reset` |
+
+---
+
+## 🔄 IMPORTANT : Continuité du Workflow
+
+### À la fin de cette skill, TOUJOURS :
+
+1. **Mettre à jour le workflow** (si un workflow était en cours) :
+```
+mcp__serena__edit_memory
+  memory_file_name: "workflow-current.md"
+  → Ajouter dans Historique : /post-mortem ✅
+  → Noter les actions identifiées
+```
+
+2. **Afficher le résumé de transition** :
+```markdown
+---
+## ✅ Post-Mortem Terminé
+
+**Sujet** : [Titre du post-mortem]
+**Type** : [Incident / Session / Release]
+
+**Leçons clés** :
+- [Leçon 1]
+- [Leçon 2]
+
+**Actions définies** : X actions
+
+**Mémoire sauvegardée** : `postmortem-YYYY-MM-DD-[sujet].md`
+
+→ **Prochaines étapes** :
+  - Si actions techniques : `/analyze [action]` pour les planifier
+  - Si fin de session : `/next --reset` pour une nouvelle tâche
+
+💡 `/next` pour voir le workflow complet
+---
+```

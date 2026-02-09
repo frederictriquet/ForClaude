@@ -538,11 +538,16 @@ mcp__serena__write_memory
 
 ## Transition vers la prochaine phase
 
-| Situation | Prochaine skill |
-|-----------|-----------------|
-| Documentation complète | `/capitalize` (puis roadmap → merge) |
-| Code à améliorer | `/refactor` |
-| Tests manquants | `/test-write` |
+| Situation | Prochaine skill | ⛔ INTERDIT |
+|-----------|-----------------|-------------|
+| Documentation complète | `/capitalize` | `/pre-merge` (il reste 3 étapes) |
+| Code à améliorer | `/refactor` puis revenir | `/pre-merge` |
+| Tests manquants | `/test-write` → `/test-run` → revenir | `/pre-merge` |
+
+### ⛔ INTERDIT après /document
+
+- **JAMAIS** proposer `/pre-merge` directement (il reste : capitalize → roadmap-update → pre-merge)
+- **JAMAIS** proposer un commit comme conclusion
 
 ---
 

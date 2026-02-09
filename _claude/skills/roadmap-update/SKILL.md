@@ -408,12 +408,24 @@ mcp__serena__write_memory
 
 ## Transition
 
-| Situation | Prochaine action |
-|-----------|------------------|
-| Tâche marquée DONE | `/pre-merge` pour finaliser |
-| Tâche BLOCKED | Résoudre le blocage, puis revenir |
-| Nouvelle tâche à prendre | `/analyze` |
-| Fin de sprint | `/post-mortem --session` |
+| Situation | Prochaine action | Note |
+|-----------|------------------|------|
+| Tâche marquée DONE (--done) | `/pre-merge` | ✅ SEUL moment où /pre-merge est autorisé |
+| Tâche IN_PROGRESS (--in-progress) | Continuer le workflow | - |
+| Tâche BLOCKED (--blocked) | Résoudre le blocage | - |
+| Nouvelle tâche à prendre | `/analyze` | - |
+| Fin de sprint | `/post-mortem --session` | - |
+
+### ⚠️ NOTE IMPORTANTE
+
+`/roadmap-update --done` est l'**avant-dernière étape**. C'est le seul moment où `/pre-merge` devient autorisé.
+
+Avant d'utiliser `--done`, vérifier que TOUTES ces étapes sont ✅ :
+- `/test-run` - tests passent
+- `/quality-check` - lint OK
+- `/code-review` - approuvé
+- `/document` - documentation à jour
+- `/capitalize` - apprentissages sauvegardés
 
 ---
 

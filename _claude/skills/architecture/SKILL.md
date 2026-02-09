@@ -40,7 +40,43 @@ STOP ! Finalise le plan d'architecture et passe à `/implement`.
 
 ---
 
-## 0. Consultation SERENA
+## 0. Vérification des Prérequis (RECOMMANDÉ)
+
+### Consulter l'état du workflow
+
+```
+mcp__serena__read_memory
+  memory_file_name: "workflow-current.md"
+```
+
+### Prérequis recommandés
+
+| # | Prérequis | Status | Si manquant |
+|---|-----------|--------|-------------|
+| 1 | `/analyze` | ✅ recommandé | ⚠️ Voir avertissement |
+| 2 | `/explore-options` | ✅ si plusieurs solutions | Optionnel |
+| 3 | `/tech-choice` | ✅ si décision technique | Optionnel |
+
+### ⚠️ SI /analyze N'A PAS ÉTÉ FAIT
+
+Pour les tâches non triviales, vérifier que le besoin est bien compris :
+
+```markdown
+⚠️ **ANALYSE NON DOCUMENTÉE**
+
+Aucune analyse préalable n'a été trouvée pour cette tâche.
+
+**Options** :
+1. Exécuter `/analyze` pour clarifier le besoin (recommandé)
+2. Continuer si le besoin est simple et bien compris
+3. Confirmer explicitement vouloir concevoir sans analyse préalable
+
+→ Que souhaitez-vous faire ?
+```
+
+---
+
+## 0b. Consultation SERENA
 
 ### Analyse de l'existant
 
