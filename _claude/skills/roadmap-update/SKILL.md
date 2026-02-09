@@ -30,9 +30,13 @@ mcp__serena__read_memory
 
 | # | Prérequis | Status requis | Si manquant |
 |---|-----------|---------------|-------------|
-| 1 | `/code-review` | ✅ approuvé | STOP → `/code-review` |
-| 2 | `/document` | ✅ | STOP → `/document` |
-| 3 | `/capitalize` | ✅ | STOP → `/capitalize` |
+| 1 | `/test-run` | ✅ tests passent | STOP → `/test-run` |
+| 2 | `/quality-check` | ✅ lint OK | STOP → `/quality-check` |
+| 3 | `/code-review` | ✅ approuvé | STOP → `/code-review` |
+| 4 | `/document` | ✅ | STOP → `/document` |
+| 5 | `/capitalize` | ✅ | STOP → `/capitalize` |
+
+**Il reste 1 étape** après /roadmap-update --done : pre-merge
 
 ### 🛑 SI PRÉREQUIS NON REMPLIS (avec --done)
 

@@ -405,7 +405,7 @@ mcp__serena__write_memory
 
 | Verdict | Prochaine skill | ⛔ INTERDIT |
 |---------|-----------------|-------------|
-| ✅ Approuvé | `/document` | `/pre-merge` (il reste 3 étapes !) |
+| ✅ Approuvé | `/document` | `/pre-merge` (il reste 4 étapes !) |
 | 🔄 Changements requis | Voir boucle ci-dessous | `/pre-merge`, `/document` |
 | Problèmes de tests | `/test-write` → `/test-run` → re-review | `/pre-merge` |
 | Bugs trouvés | `/debug` → `/test-run` → re-review | `/pre-merge` |

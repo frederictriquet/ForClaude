@@ -73,6 +73,41 @@ Ne pas commencer à coder avant d'avoir :
 
 ---
 
+## 0b. Vérification des Prérequis
+
+### Consulter l'état du workflow
+
+```
+mcp__serena__read_memory
+  memory_file_name: "workflow-current.md"
+```
+
+### Prérequis recommandés
+
+| # | Prérequis | Status | Si manquant |
+|---|-----------|--------|-------------|
+| 1 | `/analyze` | ✅ ou N/A si simple | Optionnel pour tâches simples |
+| 2 | `/architecture` | ✅ recommandé | ⚠️ Proposer `/architecture` d'abord |
+
+### ⚠️ SI ARCHITECTURE MANQUANTE
+
+Pour les tâches non triviales, vérifier qu'un plan existe :
+
+```markdown
+⚠️ **ARCHITECTURE NON DOCUMENTÉE**
+
+Aucun plan d'architecture n'a été trouvé pour cette tâche.
+
+**Options** :
+1. Exécuter `/architecture` pour concevoir le plan (recommandé)
+2. Continuer si la tâche est simple et ne nécessite pas de conception
+3. Confirmer explicitement vouloir implémenter sans plan
+
+→ Que souhaitez-vous faire ?
+```
+
+---
+
 ## 1. Préparation SERENA
 
 ### Consultation préalable
@@ -84,13 +119,17 @@ mcp__serena__get_symbols_overview - Comprendre les fichiers à modifier
 mcp__serena__find_symbol - Localiser les points d'intégration
 ```
 
-### Checklist de démarrage
+### Checklist de démarrage (BLOQUANT si non rempli)
 
 - [ ] Architecture/plan disponible ? (sinon → `/architecture`)
 - [ ] Décisions techniques documentées ? (sinon → `/tech-choice`)
 - [ ] Conventions du projet connues ?
 - [ ] Tests existants identifiés ?
 - [ ] Point d'intégration clair ?
+
+### 🛑 SI CHECKLIST NON REMPLIE
+
+Ne pas commencer à coder. Proposer la skill manquante.
 
 ---
 
@@ -456,7 +495,7 @@ mcp__serena__edit_memory
 → **Prochaine étape** : `/test-write [fichiers]`
   (ou `/test-run` UNIQUEMENT si les tests existants couvrent déjà les changements)
 
-⚠️ Il reste 7 étapes avant le merge : test-write → test-run → quality-check → code-review → document → capitalize → roadmap-update → pre-merge
+⚠️ Il reste **8 étapes** avant le merge : test-write → test-run → quality-check → code-review → document → capitalize → roadmap-update → pre-merge
 
 💡 `/next` pour voir le workflow complet
 ---

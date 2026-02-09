@@ -36,9 +36,46 @@ STOP ! Note le bug et propose `/debug`. N'essaie pas de corriger dans cette skil
 
 ---
 
+## 0. Vérification des Prérequis (OBLIGATOIRE)
+
+### Consulter l'état du workflow
+
+```
+mcp__serena__read_memory
+  memory_file_name: "workflow-current.md"
+```
+
+### Prérequis pour cette skill
+
+| # | Prérequis | Status requis | Si manquant |
+|---|-----------|---------------|-------------|
+| 1 | `/implement` | ✅ code écrit | STOP → `/implement` |
+| 2 | Code à tester | Fichiers existent | STOP → `/implement` |
+
+### 🛑 SI PRÉREQUIS NON REMPLIS
+
+**NE PAS CONTINUER.** Afficher :
+
+```markdown
+⛔ **PRÉREQUIS MANQUANT**
+
+`/test-write` requiert que du code à tester existe.
+
+→ **Action requise** : Exécuter `/implement` d'abord
+
+⚠️ Ordre obligatoire : implement → test-write → test-run → ...
+```
+
+### Vérification du code à tester
+
+Avant d'écrire des tests, vérifier :
+1. Les fichiers à tester existent
+2. Les fonctions/classes à tester sont implémentées
+3. Le code compile/s'exécute sans erreur
+
 ---
 
-## 0. Consultation SERENA
+## 0b. Consultation SERENA
 
 ### Analyse préalable
 
@@ -441,9 +478,48 @@ mcp__serena__write_memory
 
 ## Transition vers la prochaine phase
 
-| Situation | Prochaine skill |
-|-----------|-----------------|
-| Tests écrits, à exécuter | `/test-run` |
-| Tests échouent | `/debug` |
-| Code à implémenter (TDD) | `/implement` |
-| Tests passent, review | `/code-review` |
+| Situation | Prochaine skill | ⛔ INTERDIT |
+|-----------|-----------------|-------------|
+| Tests écrits, à exécuter | `/test-run` | `/code-review`, `/pre-merge` |
+| Bug découvert en écrivant tests | `/debug` | `/pre-merge` |
+| Code manquant (TDD) | `/implement` → revenir ici | `/pre-merge` |
+
+### ⚠️ Après /test-write, TOUJOURS aller à /test-run
+
+Il reste **7 étapes** avant le merge : test-run → quality-check → code-review → document → capitalize → roadmap-update → pre-merge
+
+---
+
+## 🔄 IMPORTANT : Continuité du Workflow
+
+### À la fin de cette skill, TOUJOURS :
+
+1. **Mettre à jour le workflow** :
+```
+mcp__serena__edit_memory
+  memory_file_name: "workflow-current.md"
+  → Ajouter dans Historique : /test-write ✅
+  → Lister les fichiers de tests créés/modifiés
+  → Noter la couverture estimée
+```
+
+2. **Afficher le résumé de transition** :
+```markdown
+---
+## ✅ Tests Écrits
+
+**Fichiers de tests créés/modifiés** :
+- `path/to/test1.test.ts` - [description]
+- `path/to/test2.test.ts` - [description]
+
+**Couverture estimée** : [X cas de test pour Y fonctions]
+
+→ **Prochaine étape** : `/test-run` pour exécuter et valider les tests
+
+⚠️ Il reste 7 étapes avant le merge
+
+💡 `/next` pour voir le workflow complet
+---
+```
+
+3. **Ne jamais proposer** `/code-review` ou `/pre-merge` directement

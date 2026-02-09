@@ -51,8 +51,11 @@ mcp__serena__read_memory
 
 | # | Prérequis | Status requis | Si manquant |
 |---|-----------|---------------|-------------|
-| 1 | `/quality-check` | ✅ lint et types OK | STOP → `/quality-check` |
-| 2 | `/code-review` | ✅ **approuvé** (pas 🔄) | STOP → `/code-review` |
+| 1 | `/test-run` | ✅ tests passent | STOP → `/test-run` |
+| 2 | `/quality-check` | ✅ lint et types OK | STOP → `/quality-check` |
+| 3 | `/code-review` | ✅ **approuvé** (pas 🔄) | STOP → `/code-review` |
+
+**Il reste 3 étapes** après /document : capitalize → roadmap-update → pre-merge
 
 ### 🛑 SI PRÉREQUIS NON REMPLIS
 

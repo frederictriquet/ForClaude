@@ -30,8 +30,11 @@ mcp__serena__read_memory
 
 | # | Prérequis | Status requis | Si manquant |
 |---|-----------|---------------|-------------|
-| 1 | `/code-review` | ✅ approuvé | STOP → `/code-review` |
-| 2 | `/document` | ✅ documentation à jour | STOP → `/document` |
+| 1 | `/test-run` | ✅ tests passent | STOP → `/test-run` |
+| 2 | `/code-review` | ✅ approuvé | STOP → `/code-review` |
+| 3 | `/document` | ✅ documentation à jour | STOP → `/document` |
+
+**Il reste 2 étapes** après /capitalize : roadmap-update --done → pre-merge
 
 ### 🛑 SI PRÉREQUIS NON REMPLIS
 

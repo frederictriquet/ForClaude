@@ -320,23 +320,36 @@ L'ordre de finalisation après implémentation est **fixe et obligatoire** :
 |-------------------|------------------------|----------------------|
 | `/implement` | `/pre-merge`, `/code-review`, commit | `/test-write` |
 | `/test-write` | `/pre-merge`, `/code-review` | `/test-run` |
-| `/test-run` ✅ | `/pre-merge`, `/code-review` (il reste 6 étapes !) | `/quality-check` |
-| `/quality-check` ✅ | `/pre-merge` (il reste 5 étapes !) | `/code-review` |
+| `/test-run` ✅ | `/pre-merge`, `/code-review` (il reste 6 étapes) | `/quality-check` |
+| `/quality-check` ✅ | `/pre-merge` (il reste 5 étapes) | `/code-review` |
 | `/quality-check` ❌ | `/code-review`, `/pre-merge` | Corriger → `/test-run` → `/quality-check` |
-| `/code-review` ✅ | `/pre-merge` (il reste 3 étapes !) | `/document` |
+| `/code-review` ✅ | `/pre-merge` (il reste 4 étapes) | `/document` |
 | `/code-review` 🔄 | `/pre-merge`, `/document` | Boucle de correction |
-| `/document` | `/pre-merge` (il reste 2 étapes !) | `/capitalize` |
-| `/capitalize` | `/pre-merge` (il reste 1 étape !) | `/roadmap-update --done` |
+| `/document` | `/pre-merge` (il reste 3 étapes) | `/capitalize` |
+| `/capitalize` | `/pre-merge` (il reste 2 étapes) | `/roadmap-update --done` |
 
 #### 3. BOUCLES DE RÉTROACTION OBLIGATOIRES
 
 Après une `/code-review` 🔄 (changements requis), **TOUJOURS** :
 
 ```
-corrections → /test-write (si tests à ajouter) → /test-run → /code-review (re-review)
+corrections → /test-write (si tests à ajouter) → /test-run → /quality-check → /code-review (re-review)
 ```
 
 **On ne passe à `/document` qu'après un ✅ de la code-review.**
+
+#### 3b. COMPTAGE DES ÉTAPES RESTANTES
+
+| Après cette skill | Étapes restantes | Nombre |
+|-------------------|------------------|--------|
+| `/implement` | test-write → test-run → quality-check → code-review → document → capitalize → roadmap-update → pre-merge | **8** |
+| `/test-write` | test-run → quality-check → code-review → document → capitalize → roadmap-update → pre-merge | **7** |
+| `/test-run` | quality-check → code-review → document → capitalize → roadmap-update → pre-merge | **6** |
+| `/quality-check` | code-review → document → capitalize → roadmap-update → pre-merge | **5** |
+| `/code-review` | document → capitalize → roadmap-update → pre-merge | **4** |
+| `/document` | capitalize → roadmap-update → pre-merge | **3** |
+| `/capitalize` | roadmap-update → pre-merge | **2** |
+| `/roadmap-update --done` | pre-merge | **1** |
 
 #### 4. RÈGLES D'OR
 
@@ -350,12 +363,14 @@ Chaque skill DOIT vérifier `workflow-current.md` au début et refuser de s'exé
 
 | Skill | Prérequis obligatoires | Gate implémenté ? |
 |-------|----------------------|-------------------|
+| `/implement` | `/architecture` ✅ (recommandé) | ✅ OUI (avertissement) |
+| `/test-write` | `/implement` ✅, code à tester existe | ✅ OUI |
 | `/test-run` | `/implement` ✅, `/test-write` ✅ ou tests existants | ✅ OUI |
 | `/quality-check` | `/test-run` ✅ | ✅ OUI |
 | `/code-review` | `/quality-check` ✅ | ✅ OUI |
-| `/document` | `/code-review` ✅ (approuvé, pas 🔄) | ✅ OUI |
-| `/capitalize` | `/document` ✅ | ✅ OUI |
-| `/roadmap-update --done` | `/capitalize` ✅ | ✅ OUI |
+| `/document` | `/test-run` ✅, `/quality-check` ✅, `/code-review` ✅ | ✅ OUI |
+| `/capitalize` | `/test-run` ✅, `/document` ✅ | ✅ OUI |
+| `/roadmap-update --done` | `/test-run` ✅, `/quality-check` ✅, `/capitalize` ✅ | ✅ OUI |
 | `/pre-merge` | TOUTES les étapes précédentes ✅ | ✅ OUI |
 
 #### 6. FORMAT STANDARD DE GATE
