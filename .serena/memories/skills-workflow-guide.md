@@ -22,7 +22,8 @@ Ce projet dispose d'un ensemble de **14 skills atomiques** couvrant tout le cycl
 | 5 | `/implement` | Écrire le code |
 | 6 | `/test-write` | Écrire les tests |
 | 7 | `/test-run` | Exécuter et valider les tests |
-| 8 | `/debug` | Corriger un bug |
+| 8 | `/quality-check` | Lint, formatage et checks de qualité |
+| 9 | `/debug` | Corriger un bug |
 
 ### 3. Phase de Validation
 
@@ -77,13 +78,13 @@ Chaque skill met à jour `workflow-current.md` dans SERENA avec :
 ┌─────────────────────────────────────────────────────────────────────┐
 │                    BOUCLE DE RÉTROACTION                            │
 │                                                                     │
-│  ┌──▶ /implement ──▶ /test-write ──▶ /test-run ──▶ /code-review    │
-│  │                                       │              │           │
-│  │                                      (❌)           (🔄)         │
-│  │                                       ↓              │           │
-│  │                                    /debug ───────────┤           │
-│  │                                                      │           │
-│  └──────────────────────────────────────────────────────┘           │
+│  ┌──▶ /implement ──▶ /test-write ──▶ /test-run ──▶ /quality-check ──▶ /code-review │
+│  │                                       │              │                │          │
+│  │                                      (❌)           (❌)              │          │
+│  │                                       ↓              │                │          │
+│  │                                    /debug ───────────┤                │          │
+│  │                                                      │               (🔄)        │
+│  └──────────────────────────────────────────────────────┴────────────────┘          │
 │                                                                     │
 │  ⚠️ Après corrections : TOUJOURS repasser par /test-run puis        │
 │     /code-review AVANT de continuer vers /document                  │
@@ -106,9 +107,10 @@ Le workflow n'est **pas linéaire**. Après une code-review 🔄, on revient en 
 
 | Situation | Retour à | Chemin complet |
 |-----------|----------|----------------|
-| Corrections de code | `/implement` | → `/test-write` → `/test-run` → `/code-review` |
-| Tests manquants | `/test-write` | → `/test-run` → `/code-review` |
-| Tests échouent | `/debug` | → `/test-run` → `/code-review` |
+| Corrections de code | `/implement` | → `/test-write` → `/test-run` → `/quality-check` → `/code-review` |
+| Tests manquants | `/test-write` | → `/test-run` → `/quality-check` → `/code-review` |
+| Tests échouent | `/debug` | → `/test-run` → `/quality-check` → `/code-review` |
+| Erreurs lint/types | Corriger | → `/test-run` → `/quality-check` → `/code-review` |
 | Architecture à revoir | `/architecture` | → `/implement` → ... → `/code-review` |
 
 **Règle d'or** : On ne passe à `/document` qu'après un ✅ de la code-review.
@@ -189,7 +191,7 @@ mcp__serena__write_memory
 #### 1. ORDRE DU WORKFLOW : NON NÉGOCIABLE
 
 ```
-/implement → /test-write → /test-run → /code-review → /document → /capitalize → /roadmap-update --done → /pre-merge
+/implement → /test-write → /test-run → /quality-check → /code-review → /document → /capitalize → /roadmap-update --done → /pre-merge
 ```
 
 `/pre-merge` est TOUJOURS la DERNIÈRE étape. Aucune étape ne peut être sautée.
@@ -199,9 +201,10 @@ mcp__serena__write_memory
 | ⛔ INTERDIT | À la place |
 |-------------|------------|
 | Proposer un commit/merge après `/implement` | Proposer `/test-write` |
+| Proposer `/code-review` après `/test-run` | Proposer `/quality-check` |
 | Proposer `/pre-merge` après `/code-review` | Proposer `/document` |
 | Proposer "on commit ?" comme conclusion d'une skill | Proposer la prochaine skill |
-| Sauter `/document` ou `/capitalize` | Suivre l'ordre |
+| Sauter `/quality-check`, `/document` ou `/capitalize` | Suivre l'ordre |
 | Ignorer `workflow-current.md` | Toujours le consulter |
 | Court-circuiter le workflow "parce que c'est simple" | Suivre toutes les étapes |
 
@@ -213,6 +216,7 @@ mcp__serena__write_memory
 
 Avant d'exécuter `/pre-merge`, vérifier dans `workflow-current.md` que TOUTES ces skills sont ✅ :
 - `/test-run` (tests passent)
+- `/quality-check` (lint et types OK)
 - `/code-review` (approuvé)
 - `/document` (documentation à jour)
 - `/capitalize` (apprentissages sauvegardés)

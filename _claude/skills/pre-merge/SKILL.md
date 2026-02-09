@@ -38,10 +38,11 @@ mcp__serena__read_memory
 | 1 | `/implement` | ✅ code écrit | STOP → exécuter `/implement` |
 | 2 | `/test-write` | ✅ tests écrits | STOP → exécuter `/test-write` |
 | 3 | `/test-run` | ✅ tous les tests passent | STOP → exécuter `/test-run` |
-| 4 | `/code-review` | ✅ **approuvé** (pas 🔄) | STOP → exécuter `/code-review` |
-| 5 | `/document` | ✅ documentation à jour | STOP → exécuter `/document` |
-| 6 | `/capitalize` | ✅ apprentissages sauvegardés | STOP → exécuter `/capitalize` |
-| 7 | `/roadmap-update --done` | ✅ tâche marquée done | STOP → exécuter `/roadmap-update --done` |
+| 4 | `/quality-check` | ✅ lint et types OK | STOP → exécuter `/quality-check` |
+| 5 | `/code-review` | ✅ **approuvé** (pas 🔄) | STOP → exécuter `/code-review` |
+| 6 | `/document` | ✅ documentation à jour | STOP → exécuter `/document` |
+| 7 | `/capitalize` | ✅ apprentissages sauvegardés | STOP → exécuter `/capitalize` |
+| 8 | `/roadmap-update --done` | ✅ tâche marquée done | STOP → exécuter `/roadmap-update --done` |
 
 ### 🛑 SI UN PRÉREQUIS MANQUE :
 

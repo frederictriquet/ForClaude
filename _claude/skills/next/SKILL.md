@@ -134,9 +134,11 @@ Créez une branche feature avant de continuer l'implémentation.
 | `/architecture` | `/implement` | - |
 | `/implement` | `/test-write` | `/pre-merge`, `/code-review`, `/commit` |
 | `/test-write` | `/test-run` | `/pre-merge`, `/code-review` |
-| `/test-run` (✅) | `/code-review` | `/pre-merge` (il reste 5 étapes !) |
+| `/test-run` (✅) | `/quality-check` | `/pre-merge`, `/code-review` (il reste 6 étapes !) |
 | `/test-run` (❌) | `/debug` | `/pre-merge` |
 | `/debug` | `/test-run` | `/pre-merge` |
+| `/quality-check` (✅) | `/code-review` | `/pre-merge` (il reste 5 étapes !) |
+| `/quality-check` (❌) | Corriger → `/test-run` → `/quality-check` | `/code-review`, `/pre-merge` |
 | `/code-review` (✅) | `/document` | `/pre-merge` (il reste 3 étapes !) |
 | `/code-review` (🔄) | Voir "Boucles de rétroaction" ci-dessous | `/pre-merge` |
 | `/document` | `/capitalize` | `/pre-merge` (il reste 2 étapes !) |
@@ -144,21 +146,23 @@ Créez une branche feature avant de continuer l'implémentation.
 | `/roadmap-update --done` | `/pre-merge` ← SEUL moment autorisé | - |
 | `/pre-merge` | Workflow terminé ou `/post-mortem` | - |
 
-### Boucles de rétroaction (après /code-review 🔄)
+### Boucles de rétroaction (après /code-review 🔄 ou /quality-check ❌)
 
-Quand une code-review demande des corrections, le workflow **revient en arrière** :
+Quand une code-review demande des corrections ou que le quality-check échoue, le workflow **revient en arrière** :
 
 | Type de correction demandée | Retour à | Puis |
 |-----------------------------|----------|------|
-| Corrections de code | `/implement` | → `/test-write` → `/test-run` → `/code-review` |
-| Tests manquants/insuffisants | `/test-write` | → `/test-run` → `/code-review` |
-| Tests échouent | `/debug` | → `/test-run` → `/code-review` |
+| Corrections de code | `/implement` | → `/test-write` → `/test-run` → `/quality-check` → `/code-review` |
+| Tests manquants/insuffisants | `/test-write` | → `/test-run` → `/quality-check` → `/code-review` |
+| Tests échouent | `/debug` | → `/test-run` → `/quality-check` → `/code-review` |
+| Erreurs de lint/types | Corriger | → `/test-run` → `/quality-check` → `/code-review` |
 | Problème d'architecture | `/architecture` | → `/implement` → ... → `/code-review` |
 
 **⚠️ IMPORTANT** : Après CHAQUE boucle de correction, il faut :
-1. Repasser par `/test-run` pour valider
-2. Repasser par `/code-review` pour re-review
-3. SEULEMENT après ✅ de la re-review, continuer vers `/document`
+1. Repasser par `/test-run` pour valider que les corrections n'ont rien cassé
+2. Repasser par `/quality-check` pour vérifier lint et types
+3. Repasser par `/code-review` pour re-review
+4. SEULEMENT après ✅ de la re-review, continuer vers `/document`
 
 ---
 

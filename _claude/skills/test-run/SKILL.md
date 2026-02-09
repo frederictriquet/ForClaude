@@ -298,9 +298,9 @@ mcp__serena__write_memory
 
 | Résultat | Prochaine skill | ⛔ INTERDIT |
 |----------|-----------------|-------------|
-| ❌ Tests échouent | `/debug` | `/pre-merge` |
-| 🟡 Couverture insuffisante | `/test-write` | `/pre-merge` |
-| ✅ Tous les tests passent | `/code-review` | `/pre-merge` (il reste 5 étapes !) |
+| ❌ Tests échouent | `/debug` | `/pre-merge`, `/code-review` |
+| 🟡 Couverture insuffisante | `/test-write` | `/pre-merge`, `/code-review` |
+| ✅ Tous les tests passent | `/quality-check` | `/pre-merge`, `/code-review` (il reste 6 étapes !) |
 
 ---
 
@@ -330,9 +330,11 @@ mcp__serena__edit_memory
 - `test name` - [raison courte]
 
 → **Prochaine étape** :
-  - Si ✅ : `/code-review` (JAMAIS /pre-merge ici, il reste 5 étapes)
+  - Si ✅ : `/quality-check` (lint et checks de qualité)
   - Si ❌ : `/debug [test échoué]`
   - Si 🟡 couverture basse : `/test-write [module]`
+
+⚠️ JAMAIS /code-review ni /pre-merge ici, il reste 6 étapes !
 
 💡 `/next` pour voir le workflow complet
 ---

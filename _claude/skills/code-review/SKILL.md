@@ -381,18 +381,27 @@ mcp__serena__write_memory
 | Bugs trouvés | `/debug` → `/test-run` → re-review | `/pre-merge` |
 | Architecture à revoir | `/architecture` → `/implement` → ... → re-review | `/pre-merge` |
 
+### Prérequis de cette skill
+
+| Skill | Requis |
+|-------|--------|
+| `/test-run` | ✅ Tests passent |
+| `/quality-check` | ✅ Lint et types OK |
+
 ### Boucle de rétroaction (🔄 Changements requis)
 
 Quand des corrections sont demandées, l'auteur doit :
 
 ```
-1. /implement    ← Corriger le code
+1. /implement      ← Corriger le code
        ↓
-2. /test-write   ← Ajouter/modifier les tests si nécessaire
+2. /test-write     ← Ajouter/modifier les tests si nécessaire
        ↓
-3. /test-run     ← Vérifier que tout passe
+3. /test-run       ← Vérifier que tout passe
        ↓
-4. /code-review  ← RE-REVIEW obligatoire
+4. /quality-check  ← Vérifier lint et types
+       ↓
+5. /code-review    ← RE-REVIEW obligatoire
        ↓
    Si ✅ → /document
    Si 🔄 → Recommencer la boucle

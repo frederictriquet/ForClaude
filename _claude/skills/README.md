@@ -45,7 +45,12 @@ Chaque skill suit le **Single Responsibility Principle** :
 │  │   │            │ (✅)                          │                       │   │
 │  │   │            ▼                               │                       │   │
 │  │   │   ┌──────────────────┐                     │                       │   │
-│  │   │   │   /code-review   │ ◀───────────────────┘                       │   │
+│  │   │   │  /quality-check  │ ◀───────────────────┘                       │   │
+│  │   │   └────────┬─────────┘                                            │   │
+│  │   │            │ (✅)                                                  │   │
+│  │   │            ▼                                                      │   │
+│  │   │   ┌──────────────────┐                                            │   │
+│  │   │   │   /code-review   │                                            │   │
 │  │   │   └────────┬─────────┘                                            │   │
 │  │   │            │                                                      │   │
 │  │   │     ┌──────┴──────┐                                               │   │
@@ -117,6 +122,7 @@ Le workflow n'est **pas linéaire**. Après une code-review, on peut revenir en 
 | `/implement` | Implémente une fonctionnalité | `--tdd`, `--incremental` |
 | `/test-write` | Écrit les tests | `--unit`, `--integration`, `--e2e` |
 | `/test-run` | Exécute et analyse les tests | `--watch`, `--coverage`, `--verbose` |
+| `/quality-check` | Lint, formatage et checks de qualité | `--fix`, `--strict` |
 | `/debug` | Diagnostique et corrige un bug | `--verbose` |
 
 ### Phase de Validation
@@ -303,7 +309,7 @@ Après chaque skill, vous verrez :
 L'ordre de finalisation après implémentation est **fixe et obligatoire** :
 
 ```
-/implement → /test-write → /test-run → /code-review → /document → /capitalize → /roadmap-update --done → /pre-merge
+/implement → /test-write → /test-run → /quality-check → /code-review → /document → /capitalize → /roadmap-update --done → /pre-merge
 ```
 
 **`/pre-merge` est TOUJOURS la DERNIÈRE étape.** Aucune étape ne peut être sautée.
@@ -314,7 +320,9 @@ L'ordre de finalisation après implémentation est **fixe et obligatoire** :
 |-------------------|------------------------|----------------------|
 | `/implement` | `/pre-merge`, `/code-review`, commit | `/test-write` |
 | `/test-write` | `/pre-merge`, `/code-review` | `/test-run` |
-| `/test-run` ✅ | `/pre-merge` (il reste 5 étapes !) | `/code-review` |
+| `/test-run` ✅ | `/pre-merge`, `/code-review` (il reste 6 étapes !) | `/quality-check` |
+| `/quality-check` ✅ | `/pre-merge` (il reste 5 étapes !) | `/code-review` |
+| `/quality-check` ❌ | `/code-review`, `/pre-merge` | Corriger → `/test-run` → `/quality-check` |
 | `/code-review` ✅ | `/pre-merge` (il reste 3 étapes !) | `/document` |
 | `/code-review` 🔄 | `/pre-merge`, `/document` | Boucle de correction |
 | `/document` | `/pre-merge` (il reste 2 étapes !) | `/capitalize` |
@@ -343,7 +351,8 @@ Chaque skill DOIT vérifier `workflow-current.md` au début et refuser de s'exé
 | Skill | Prérequis obligatoires |
 |-------|----------------------|
 | `/test-run` | `/implement` et `/test-write` ✅ |
-| `/code-review` | `/test-run` ✅ |
+| `/quality-check` | `/test-run` ✅ |
+| `/code-review` | `/quality-check` ✅ |
 | `/document` | `/code-review` ✅ |
 | `/capitalize` | `/document` ✅ |
 | `/pre-merge` | TOUTES les étapes précédentes ✅ |
@@ -443,6 +452,8 @@ _claude/skills/
 ├── test-run/
 │   └── SKILL.md
 ├── debug/
+│   └── SKILL.md
+├── quality-check/
 │   └── SKILL.md
 ├── code-review/
 │   ├── SKILL.md
