@@ -324,7 +324,7 @@ mcp__serena__write_memory
 |----------|-----------------|-------------|
 | ❌ Tests échouent | `/debug` → `/test-run` | `/quality-check`, `/code-review`, `/pre-merge` |
 | 🟡 Couverture < 70% | `/test-write` → `/test-run` | `/quality-check`, `/code-review`, `/pre-merge` |
-| ⚠️ Couverture 70-85% | `/quality-check` (avec avertissement) | `/pre-merge` |
+| ⚠️ Couverture 70-85% | `/quality-check` (avec avertissement) | `/pre-merge`, `/code-review` |
 | ✅ Couverture > 85% | `/quality-check` | `/pre-merge`, `/code-review` (il reste 6 étapes !) |
 
 ### 🛑 Blocage si couverture insuffisante

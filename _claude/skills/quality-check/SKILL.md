@@ -359,9 +359,9 @@ mcp__serena__write_memory
 
 | Résultat | Prochaine skill | ⛔ INTERDIT |
 |----------|-----------------|-------------|
-| ✅ Tous les checks passent | `/code-review` | `/pre-merge` (il reste 5 étapes !) |
+| ✅ Tous les checks passent | `/code-review` | `/document`, `/pre-merge` (il reste 5 étapes !) |
 | ❌ Erreurs de lint/types | Corriger → `/test-run` → `/quality-check` | `/code-review`, `/pre-merge` |
-| ⚠️ Warnings uniquement | `/code-review` (avec note) | `/pre-merge` (il reste 5 étapes !) |
+| ⚠️ Warnings uniquement | `/code-review` (avec note) | `/document`, `/pre-merge` (il reste 5 étapes !) |
 
 ---
 

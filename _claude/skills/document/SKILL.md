@@ -540,7 +540,7 @@ mcp__serena__write_memory
 
 | Situation | Prochaine skill | ⛔ INTERDIT |
 |-----------|-----------------|-------------|
-| Documentation complète | `/capitalize` | `/pre-merge` (il reste 3 étapes) |
+| Documentation complète | `/capitalize` | `/roadmap-update`, `/pre-merge` (il reste 3 étapes) |
 | Code à améliorer | `/refactor` puis revenir | `/pre-merge` |
 | Tests manquants | `/test-write` → `/test-run` → revenir | `/pre-merge` |
 

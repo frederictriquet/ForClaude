@@ -480,7 +480,7 @@ mcp__serena__write_memory
 
 | Situation | Prochaine skill | ⛔ INTERDIT |
 |-----------|-----------------|-------------|
-| Tests écrits, à exécuter | `/test-run` | `/code-review`, `/pre-merge` |
+| Tests écrits, à exécuter | `/test-run` | `/quality-check`, `/code-review`, `/pre-merge` |
 | Bug découvert en écrivant tests | `/debug` | `/code-review`, `/pre-merge` |
 | Code manquant (TDD) | `/implement` → revenir ici | `/pre-merge` |
 

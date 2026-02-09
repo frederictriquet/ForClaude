@@ -336,14 +336,14 @@ L'ordre de finalisation après implémentation est **fixe et obligatoire** :
 
 | Après cette skill | ⛔ INTERDIT de proposer | ✅ Proposer à la place |
 |-------------------|------------------------|----------------------|
-| `/implement` | `/pre-merge`, `/code-review`, `/quality-check`, commit | `/test-write` |
-| `/test-write` | `/pre-merge`, `/code-review` | `/test-run` |
+| `/implement` | `/test-run`, `/pre-merge`, `/code-review`, `/quality-check`, commit | `/test-write` |
+| `/test-write` | `/quality-check`, `/pre-merge`, `/code-review` | `/test-run` |
 | `/test-run` ✅ | `/pre-merge`, `/code-review` (il reste 6 étapes) | `/quality-check` |
-| `/quality-check` ✅ | `/pre-merge` (il reste 5 étapes) | `/code-review` |
+| `/quality-check` ✅ | `/document`, `/pre-merge` (il reste 5 étapes) | `/code-review` |
 | `/quality-check` ❌ | `/code-review`, `/pre-merge` | Corriger → `/test-run` → `/quality-check` |
-| `/code-review` ✅ | `/pre-merge` (il reste 4 étapes) | `/document` |
+| `/code-review` ✅ | `/capitalize`, `/pre-merge` (il reste 4 étapes) | `/document` |
 | `/code-review` 🔄 | `/pre-merge`, `/document` | Boucle de correction |
-| `/document` | `/pre-merge` (il reste 3 étapes) | `/capitalize` |
+| `/document` | `/roadmap-update`, `/pre-merge` (il reste 3 étapes) | `/capitalize` |
 | `/capitalize` | `/pre-merge` (il reste 2 étapes) | `/roadmap-update --done` |
 
 #### 3. BOUCLES DE RÉTROACTION OBLIGATOIRES

@@ -451,7 +451,7 @@ Closes #issue (si applicable)
 | Situation | Prochaine skill | ⛔ INTERDIT |
 |-----------|-----------------|-------------|
 | **Nouveaux fichiers/fonctions créés** | `/test-write` (OBLIGATOIRE) | `/test-run`, `/quality-check`, `/code-review`, `/pre-merge` |
-| **Tests existants couvrent déjà les changements** | `/test-write` pour ajouter des cas | `/quality-check`, `/code-review`, `/pre-merge` |
+| **Tests existants couvrent déjà les changements** | `/test-write` pour ajouter des cas | `/test-run`, `/quality-check`, `/code-review`, `/pre-merge` |
 | **Correction mineure dans code existant testé** | `/test-run` pour vérifier non-régression | `/quality-check`, `/code-review`, `/pre-merge` |
 | **Bug découvert pendant l'implémentation** | `/debug` | `/code-review`, `/pre-merge` |
 
