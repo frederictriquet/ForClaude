@@ -146,7 +146,7 @@ git checkout -b feature/[nom-de-la-feature]
 
 ---
 
-## 1. Clarification du Besoin
+## 2. Clarification du Besoin
 
 ### Questions essentielles
 
@@ -165,7 +165,7 @@ Reformule le besoin en une phrase claire :
 
 ---
 
-## 2. Analyse du Contexte Existant
+## 3. Analyse du Contexte Existant
 
 ### Code à examiner
 
@@ -188,7 +188,7 @@ mcp__serena__search_for_pattern - Chercher des patterns similaires
 
 ---
 
-## 3. Identification des Contraintes
+## 4. Identification des Contraintes
 
 ### Contraintes techniques
 
@@ -211,7 +211,7 @@ mcp__serena__search_for_pattern - Chercher des patterns similaires
 
 ---
 
-## 4. Définition du Périmètre
+## 5. Définition du Périmètre
 
 ### Inclus (IN scope)
 
@@ -236,7 +236,7 @@ Comment saurons-nous que c'est terminé ?
 
 ---
 
-## 5. Risques et Incertitudes
+## 6. Risques et Incertitudes
 
 ### Risques identifiés
 
@@ -252,7 +252,7 @@ Liste des points qui nécessitent clarification :
 
 ---
 
-## 6. Livrables de l'Analyse
+## 7. Livrables de l'Analyse
 
 ### Document de sortie
 
@@ -289,7 +289,7 @@ Produis un résumé structuré contenant :
 
 ---
 
-## 7. Capitalisation SERENA
+## 8. Capitalisation SERENA
 
 ### À la fin de l'analyse
 

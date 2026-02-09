@@ -20,7 +20,7 @@ Maintenir la **continuité du workflow** en rappelant le contexte et en proposan
 ### Ces règles sont IMPÉRATIVES et ne peuvent JAMAIS être contournées :
 
 1. **JAMAIS de commit/merge/PR avant d'avoir complété TOUTES les étapes de validation**
-   - L'ordre est : `/implement` → `/test-write` → `/test-run` → `/code-review` → `/document` → `/capitalize` → `/roadmap-update --done` → `/pre-merge`
+   - L'ordre est : `/implement` → `/test-write` → `/test-run` → `/quality-check` → `/code-review` → `/document` → `/capitalize` → `/roadmap-update --done` → `/pre-merge`
    - `/pre-merge` est la DERNIÈRE étape, JAMAIS avant
 
 2. **JAMAIS proposer une action qui saute des étapes**
@@ -106,10 +106,12 @@ Créez une branche feature avant de continuer l'implémentation.
 ⬜ /implement
 ⬜ /test-write
 ⬜ /test-run
+⬜ /quality-check
 ⬜ /code-review
-⬜ /pre-merge
-⬜ /roadmap-update --done
+⬜ /document
 ⬜ /capitalize
+⬜ /roadmap-update --done
+⬜ /pre-merge
 
 ### Contexte clé
 - [Point important 1]
@@ -122,7 +124,7 @@ Créez une branche feature avant de continuer l'implémentation.
 
 ---
 
-## 2. Logique de Suggestion
+## 3. Logique de Suggestion
 
 ### Matrice de transitions (flux principal)
 
@@ -139,13 +141,13 @@ Créez une branche feature avant de continuer l'implémentation.
 | `/test-run` (⚠️ couverture 70-85%) | `/quality-check` avec avertissement | `/pre-merge`, `/code-review` |
 | `/test-run` (🟡 couverture < 70%) | `/test-write` (BLOQUANT) | `/quality-check`, `/code-review`, `/pre-merge` |
 | `/test-run` (❌ tests échouent) | `/debug` | `/quality-check`, `/code-review`, `/pre-merge` |
-| `/debug` | `/test-run` | `/pre-merge` |
+| `/debug` | `/test-run` | `/code-review`, `/pre-merge` |
 | `/quality-check` (✅) | `/code-review` | `/pre-merge` (5 étapes restantes) |
 | `/quality-check` (❌) | Corriger → `/test-run` → `/quality-check` | `/code-review`, `/pre-merge` |
 | `/code-review` (✅) | `/document` | `/pre-merge` (il reste 4 étapes) |
 | `/code-review` (🔄) | Voir "Boucles de rétroaction" ci-dessous | `/pre-merge`, `/document` |
-| `/document` | `/capitalize` | `/pre-merge` (2 étapes restantes) |
-| `/capitalize` | `/roadmap-update --done` | `/pre-merge` (1 étape restante) |
+| `/document` | `/capitalize` | `/pre-merge` (3 étapes restantes) |
+| `/capitalize` | `/roadmap-update --done` | `/pre-merge` (2 étapes restantes) |
 | `/roadmap-update --done` | `/pre-merge` ← SEUL moment autorisé | - |
 | `/pre-merge` | Workflow terminé ou `/post-mortem` | - |
 
@@ -169,7 +171,7 @@ Quand une code-review demande des corrections ou que le quality-check échoue, l
 
 ---
 
-## 3. Rappel du Contexte
+## 4. Rappel du Contexte
 
 ### Informations à rappeler
 
@@ -188,7 +190,7 @@ mcp__serena__search_for_pattern - Changements récents
 
 ---
 
-## 4. Mise à Jour du Workflow
+## 5. Mise à Jour du Workflow
 
 ### Après chaque skill
 
@@ -228,7 +230,7 @@ YYYY-MM-DD HH:MM
 
 ---
 
-## 5. Reset du Workflow (`--reset`)
+## 6. Reset du Workflow (`--reset`)
 
 ### Quand utiliser
 
@@ -247,7 +249,7 @@ mcp__serena__edit_memory
 
 ---
 
-## 6. Commandes Rapides
+## 7. Commandes Rapides
 
 ### Voir le status
 ```
@@ -267,7 +269,7 @@ mcp__serena__edit_memory
 
 ---
 
-## 7. Intégration avec les Autres Skills
+## 8. Intégration avec les Autres Skills
 
 ### Chaque skill doit
 
@@ -295,7 +297,7 @@ mcp__serena__edit_memory
 
 ---
 
-## 8. Gestion des Interruptions
+## 9. Gestion des Interruptions
 
 ### Si le workflow est interrompu
 
@@ -314,7 +316,7 @@ Si la dernière mise à jour du workflow date de :
 
 ---
 
-## 9. Exemple d'Utilisation
+## 10. Exemple d'Utilisation
 
 ### Scénario : Reprise après interruption
 
@@ -337,9 +339,12 @@ Claude:
 🔄 /implement - 60% complété
 ⬜ /test-write
 ⬜ /test-run
+⬜ /quality-check
 ⬜ /code-review
-⬜ /pre-merge
+⬜ /document
+⬜ /capitalize
 ⬜ /roadmap-update --done
+⬜ /pre-merge
 
 ### Contexte clé
 - Utilisation de Auth0 avec PKCE flow
@@ -354,7 +359,7 @@ Voulez-vous continuer l'implémentation ?
 
 ---
 
-## 10. Instructions pour les Autres Skills
+## 11. Instructions pour les Autres Skills
 
 ### IMPORTANT : Mise à jour automatique
 
@@ -384,7 +389,7 @@ Voulez-vous continuer l'implémentation ?
 
 ---
 
-## 11. Création/Mise à Jour du Workflow
+## 12. Création/Mise à Jour du Workflow
 
 ### Au début d'un nouveau workflow
 
@@ -406,7 +411,7 @@ mcp__serena__edit_memory
 
 ---
 
-## 12. Workflow Template Initial
+## 13. Workflow Template Initial
 
 ```markdown
 # Workflow Actif

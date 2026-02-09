@@ -91,7 +91,7 @@ ls -la rustfmt.toml .rustfmt.toml Cargo.toml 2>/dev/null
 
 ---
 
-## 1. Exécution des Checks
+## 2. Exécution des Checks
 
 ### TypeScript/JavaScript
 
@@ -147,7 +147,7 @@ cargo check
 
 ---
 
-## 2. Mode Fix (`--fix`)
+## 3. Mode Fix (`--fix`)
 
 ### Corriger automatiquement les erreurs corrigibles
 
@@ -174,7 +174,7 @@ cargo fmt
 
 ---
 
-## 3. Mode Strict (`--strict`)
+## 4. Mode Strict (`--strict`)
 
 ### Checks supplémentaires
 
@@ -199,7 +199,7 @@ ruff check --select ALL .
 
 ---
 
-## 4. Rapport de Qualité
+## 5. Rapport de Qualité
 
 ### Template de rapport
 
@@ -240,7 +240,7 @@ ruff check --select ALL .
 
 ---
 
-## 5. Catégorisation des Erreurs
+## 6. Catégorisation des Erreurs
 
 ### Niveaux de sévérité
 
@@ -260,7 +260,7 @@ ruff check --select ALL .
 
 ---
 
-## 6. Intégration avec la Boucle de Rétroaction
+## 7. Intégration avec la Boucle de Rétroaction
 
 ### Si des erreurs sont trouvées
 
@@ -289,7 +289,7 @@ ruff check --select ALL .
 
 ---
 
-## 7. Configuration Projet
+## 8. Configuration Projet
 
 ### Vérifier/créer les configs
 
@@ -317,7 +317,7 @@ mcp__serena__write_memory
 
 ---
 
-## 8. Hooks Pre-commit
+## 9. Hooks Pre-commit
 
 ### Vérifier si configuré
 
@@ -341,7 +341,7 @@ npx husky add .husky/pre-commit "npm run lint && npm run typecheck"
 
 ---
 
-## 9. Capitalisation SERENA
+## 10. Capitalisation SERENA
 
 ### À capitaliser
 
@@ -359,9 +359,9 @@ mcp__serena__write_memory
 
 | Résultat | Prochaine skill | ⛔ INTERDIT |
 |----------|-----------------|-------------|
-| ✅ Tous les checks passent | `/code-review` | `/pre-merge` |
+| ✅ Tous les checks passent | `/code-review` | `/pre-merge` (il reste 5 étapes !) |
 | ❌ Erreurs de lint/types | Corriger → `/test-run` → `/quality-check` | `/code-review`, `/pre-merge` |
-| ⚠️ Warnings uniquement | `/code-review` (avec note) | `/pre-merge` |
+| ⚠️ Warnings uniquement | `/code-review` (avec note) | `/pre-merge` (il reste 5 étapes !) |
 
 ---
 

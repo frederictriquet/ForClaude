@@ -133,7 +133,7 @@ Ne pas commencer à coder. Proposer la skill manquante.
 
 ---
 
-## 1. Mode TDD (si `--tdd`)
+## 2. Mode TDD (si `--tdd`)
 
 ### Cycle Red-Green-Refactor
 
@@ -154,7 +154,7 @@ Puis revenir ici pour l'implémentation.
 
 ---
 
-## 2. Implémentation Incrémentale
+## 3. Implémentation Incrémentale
 
 ### Principe
 
@@ -186,7 +186,7 @@ Commit Final : Polish
 
 ---
 
-## 3. Standards de Code
+## 4. Standards de Code
 
 ### Principes à suivre
 
@@ -208,7 +208,7 @@ Commit Final : Polish
 
 ---
 
-## 4. Process d'Implémentation
+## 5. Process d'Implémentation
 
 ### Pour chaque composant
 
@@ -234,7 +234,7 @@ mcp__serena__rename_symbol - Renommer proprement
 
 ---
 
-## 5. Gestion des Erreurs
+## 6. Gestion des Erreurs
 
 ### Pattern standard
 
@@ -271,7 +271,7 @@ function doSomething(input: Input): Result {
 
 ---
 
-## 6. Logging et Observabilité
+## 7. Logging et Observabilité
 
 ### Quand logger
 
@@ -294,7 +294,7 @@ logger.info('Processing request', {
 
 ---
 
-## 7. Tests en Parallèle
+## 8. Tests en Parallèle
 
 ### Après chaque implémentation significative
 
@@ -312,7 +312,7 @@ npm test -- --watch [pattern]
 
 ---
 
-## 8. Intégration
+## 9. Intégration
 
 ### Points de connexion
 
@@ -331,7 +331,7 @@ mcp__serena__get_symbols_overview - Structure existante
 
 ---
 
-## 9. Validation Continue
+## 10. Validation Continue
 
 ### Après chaque étape
 
@@ -359,7 +359,7 @@ npm run build
 
 ---
 
-## 10. Documentation du Code
+## 11. Documentation du Code
 
 ### Quand documenter
 
@@ -390,7 +390,7 @@ npm run build
 
 ---
 
-## 11. Capitalisation SERENA
+## 12. Capitalisation SERENA
 
 ### Pendant l'implémentation
 
@@ -410,7 +410,7 @@ mcp__serena__edit_memory - Mettre à jour l'architecture si elle a évolué
 
 ---
 
-## 12. Commit Final
+## 13. Commit Final
 
 ### Message de commit
 
@@ -450,10 +450,10 @@ Closes #issue (si applicable)
 
 | Situation | Prochaine skill | ⛔ INTERDIT |
 |-----------|-----------------|-------------|
-| **Nouveaux fichiers/fonctions créés** | `/test-write` (OBLIGATOIRE) | `/test-run`, `/code-review` |
-| **Tests existants couvrent déjà les changements** | `/test-write` pour ajouter des cas | `/code-review` |
-| **Correction mineure dans code existant testé** | `/test-run` pour vérifier non-régression | `/code-review` |
-| **Bug découvert pendant l'implémentation** | `/debug` | `/pre-merge` |
+| **Nouveaux fichiers/fonctions créés** | `/test-write` (OBLIGATOIRE) | `/test-run`, `/quality-check`, `/code-review`, `/pre-merge` |
+| **Tests existants couvrent déjà les changements** | `/test-write` pour ajouter des cas | `/quality-check`, `/code-review`, `/pre-merge` |
+| **Correction mineure dans code existant testé** | `/test-run` pour vérifier non-régression | `/quality-check`, `/code-review`, `/pre-merge` |
+| **Bug découvert pendant l'implémentation** | `/debug` | `/code-review`, `/pre-merge` |
 
 ### ⚠️ Quand peut-on aller directement à `/test-run` ?
 

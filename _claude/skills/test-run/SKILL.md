@@ -298,7 +298,7 @@ npm test -- --ci --coverage --reporters=default --reporters=jest-junit
 [Actions suggérées]
 
 ## Prochaine Étape
-[debug | implement | code-review | pre-merge]
+[quality-check | debug | test-write]
 ```
 
 ---

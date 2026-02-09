@@ -42,10 +42,10 @@ Chaque skill suit le **Single Responsibility Principle** :
 │  │   │   ┌──────────────────┐     ┌──────────┐                           │   │
 │  │   │   │   /test-run      │ ──▶ │  /debug  │ ──┐                       │   │
 │  │   │   └────────┬─────────┘ (❌) └──────────┘   │                       │   │
-│  │   │            │ (✅)                          │                       │   │
-│  │   │            ▼                               │                       │   │
-│  │   │   ┌──────────────────┐                     │                       │   │
-│  │   │   │  /quality-check  │ ◀───────────────────┘                       │   │
+│  │   │            │ (✅)        ◀──────────────────┘                       │   │
+│  │   │            ▼                                                      │   │
+│  │   │   ┌──────────────────┐                                            │   │
+│  │   │   │  /quality-check  │                                            │   │
 │  │   │   └────────┬─────────┘                                            │   │
 │  │   │            │ (✅)                                                  │   │
 │  │   │            ▼                                                      │   │
@@ -102,7 +102,7 @@ Le workflow n'est **pas linéaire**. Après une code-review, on peut revenir en 
 | 🔄 Tests échouent après correction | `/test-run` → `/debug` | Valider les corrections |
 | 🔄 Architecture à revoir | `/architecture` | Repenser la conception |
 
-**Après chaque boucle de correction** : repasser par `/test-run` puis `/code-review` avant de continuer.
+**Après chaque boucle de correction** : repasser par `/test-run` puis `/quality-check` puis `/code-review` avant de continuer.
 
 ## Skills Disponibles
 
@@ -248,8 +248,14 @@ Après chaque skill, vous verrez :
   → Vérifie qu'on est sur la bonne branche
   → Implémente avec tests en premier
 
+/test-write auth-module --unit --integration
+  → Complète les tests unitaires et d'intégration
+
 /test-run auth --coverage
   → Vérifie que tout passe
+
+/quality-check
+  → Lint, formatage et type checking
 
 /code-review auth-module --security
   → Review avec focus sécurité
@@ -279,11 +285,23 @@ Après chaque skill, vous verrez :
 /test-run email --verbose
   → Vérifie les corrections
 
+/quality-check --fix
+  → Lint et type checking
+
+/code-review email-normalization
+  → Review de la correction
+
+/document email-normalization --inline
+  → Documente la correction si nécessaire
+
 /capitalize email case sensitivity bug --bug
   → Documente pour éviter la récurrence
 
 /roadmap-update "Fix email case sensitivity" --done
   → Met à jour la roadmap
+
+/pre-merge --pr
+  → Crée la PR et merge (DERNIÈRE ÉTAPE)
 ```
 
 ### Gestion de blocage
@@ -318,7 +336,7 @@ L'ordre de finalisation après implémentation est **fixe et obligatoire** :
 
 | Après cette skill | ⛔ INTERDIT de proposer | ✅ Proposer à la place |
 |-------------------|------------------------|----------------------|
-| `/implement` | `/pre-merge`, `/code-review`, commit | `/test-write` |
+| `/implement` | `/pre-merge`, `/code-review`, `/quality-check`, commit | `/test-write` |
 | `/test-write` | `/pre-merge`, `/code-review` | `/test-run` |
 | `/test-run` ✅ | `/pre-merge`, `/code-review` (il reste 6 étapes) | `/quality-check` |
 | `/quality-check` ✅ | `/pre-merge` (il reste 5 étapes) | `/code-review` |
@@ -355,7 +373,7 @@ corrections → /test-write (si tests à ajouter) → /test-run → /quality-che
 
 > **Si tu hésites entre proposer la prochaine skill du workflow ou proposer un commit/merge : TOUJOURS proposer la prochaine skill.**
 
-> **Après des corrections demandées en code-review : TOUJOURS repasser par /test-run puis /code-review.**
+> **Après des corrections demandées en code-review : TOUJOURS repasser par /test-run puis /quality-check puis /code-review.**
 
 #### 5. VÉRIFICATION DES PRÉREQUIS (GATES)
 
