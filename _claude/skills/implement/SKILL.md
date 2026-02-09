@@ -399,14 +399,20 @@ Closes #issue (si applicable)
 
 ## Transition vers la prochaine phase
 
-| Situation | Prochaine skill |
-|-----------|-----------------|
-| Tests manquants | `/test-write` |
-| Tests à exécuter | `/test-run` |
-| Bug découvert | `/debug` |
-| Code à nettoyer | `/clean-code` |
-| Review nécessaire | `/code-review` |
-| Documentation manquante | `/document` |
+| Situation | Prochaine skill | ⛔ INTERDIT |
+|-----------|-----------------|-------------|
+| Tests manquants | `/test-write` | `/pre-merge`, `/code-review` |
+| Tests à exécuter | `/test-run` | `/pre-merge`, `/code-review` |
+| Bug découvert | `/debug` | `/pre-merge` |
+
+### ⛔ ORDRE STRICT après /implement
+
+```
+/implement → /test-write → /test-run → /code-review → /document → /capitalize → /roadmap-update --done → /pre-merge
+```
+
+**JAMAIS proposer `/code-review` ou `/pre-merge` directement après `/implement`.**
+Les tests DOIVENT être écrits et exécutés AVANT la review.
 
 ---
 

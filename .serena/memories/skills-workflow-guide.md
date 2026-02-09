@@ -74,26 +74,52 @@ Chaque skill met à jour `workflow-current.md` dans SERENA avec :
                                     ↓
                             /architecture → /implement
                                                   ↓
-         /test-write ← /test-run ← /debug ← /code-review
-                                                  ↓
-                                            /document
-                                                  ↓
-                                           /capitalize
-                                                  ↓
-                                    /roadmap-update --done
-                                                  ↓
-                                           /pre-merge ← MERGE EN DERNIER !
-                                                  ↓
-                                         /post-mortem (si incident)
+┌─────────────────────────────────────────────────────────────────────┐
+│                    BOUCLE DE RÉTROACTION                            │
+│                                                                     │
+│  ┌──▶ /implement ──▶ /test-write ──▶ /test-run ──▶ /code-review    │
+│  │                                       │              │           │
+│  │                                      (❌)           (🔄)         │
+│  │                                       ↓              │           │
+│  │                                    /debug ───────────┤           │
+│  │                                                      │           │
+│  └──────────────────────────────────────────────────────┘           │
+│                                                                     │
+│  ⚠️ Après corrections : TOUJOURS repasser par /test-run puis        │
+│     /code-review AVANT de continuer vers /document                  │
+└─────────────────────────────────────────────────────────────────────┘
+                                            ↓ (✅)
+                                        /document
+                                            ↓
+                                       /capitalize
+                                            ↓
+                                  /roadmap-update --done
+                                            ↓
+                                       /pre-merge ← DERNIÈRE ÉTAPE, JAMAIS AVANT !
+                                            ↓
+                                     /post-mortem (si incident)
 ```
 
-### Ordre de finalisation (après code-review)
+## Boucles de Rétroaction
 
-⚠️ **Le merge arrive EN DERNIER** :
+Le workflow n'est **pas linéaire**. Après une code-review 🔄, on revient en arrière :
+
+| Situation | Retour à | Chemin complet |
+|-----------|----------|----------------|
+| Corrections de code | `/implement` | → `/test-write` → `/test-run` → `/code-review` |
+| Tests manquants | `/test-write` | → `/test-run` → `/code-review` |
+| Tests échouent | `/debug` | → `/test-run` → `/code-review` |
+| Architecture à revoir | `/architecture` | → `/implement` → ... → `/code-review` |
+
+**Règle d'or** : On ne passe à `/document` qu'après un ✅ de la code-review.
+
+### Ordre de finalisation (après code-review) — NON NÉGOCIABLE
+
+⛔ **Le merge arrive EN DERNIER. Ces 4 étapes sont OBLIGATOIRES et dans cet ordre** :
 1. `/document` - Documenter
 2. `/capitalize` - Sauvegarder les apprentissages  
 3. `/roadmap-update --done` - Marquer comme terminé
-4. `/pre-merge` - Merger
+4. `/pre-merge` - Merger (SEULE étape qui fait le commit/merge final)
 
 ## Intégration SERENA
 
@@ -155,6 +181,46 @@ mcp__serena__write_memory
 - `feature/[description]` - Nouvelles fonctionnalités
 - `fix/[description]` - Corrections de bugs
 - `refactor/[description]` - Refactoring
+
+## ⛔ RÈGLES STRICTES — INTERDICTIONS ABSOLUES
+
+### Ces règles sont IMPÉRATIVES et doivent être lues au début de CHAQUE skill.
+
+#### 1. ORDRE DU WORKFLOW : NON NÉGOCIABLE
+
+```
+/implement → /test-write → /test-run → /code-review → /document → /capitalize → /roadmap-update --done → /pre-merge
+```
+
+`/pre-merge` est TOUJOURS la DERNIÈRE étape. Aucune étape ne peut être sautée.
+
+#### 2. INTERDICTIONS EXPLICITES
+
+| ⛔ INTERDIT | À la place |
+|-------------|------------|
+| Proposer un commit/merge après `/implement` | Proposer `/test-write` |
+| Proposer `/pre-merge` après `/code-review` | Proposer `/document` |
+| Proposer "on commit ?" comme conclusion d'une skill | Proposer la prochaine skill |
+| Sauter `/document` ou `/capitalize` | Suivre l'ordre |
+| Ignorer `workflow-current.md` | Toujours le consulter |
+| Court-circuiter le workflow "parce que c'est simple" | Suivre toutes les étapes |
+
+#### 3. RÈGLE D'OR
+
+> **Si tu hésites entre proposer la prochaine skill ou proposer un commit/merge : TOUJOURS proposer la prochaine skill.**
+
+#### 4. GATE PRE-MERGE
+
+Avant d'exécuter `/pre-merge`, vérifier dans `workflow-current.md` que TOUTES ces skills sont ✅ :
+- `/test-run` (tests passent)
+- `/code-review` (approuvé)
+- `/document` (documentation à jour)
+- `/capitalize` (apprentissages sauvegardés)
+- `/roadmap-update --done` (tâche marquée terminée)
+
+Si un prérequis manque → STOP, proposer la skill manquante.
+
+---
 
 ## Bonnes Pratiques
 

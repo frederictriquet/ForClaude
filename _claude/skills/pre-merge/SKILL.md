@@ -17,6 +17,54 @@ S'assurer que **tout est prêt** pour un merge propre et sans régression.
 
 ---
 
+## ⛔ GATE OBLIGATOIRE — PRÉREQUIS BLOQUANTS
+
+### ⚠️ CETTE SKILL EST LA DERNIÈRE DU WORKFLOW
+
+`/pre-merge` ne doit JAMAIS être proposée ni exécutée avant que TOUTES les étapes précédentes soient terminées.
+Compter le nombre d'étapes restantes avant `/pre-merge` et les rappeler à l'utilisateur si nécessaire.
+
+### AVANT TOUTE ACTION, vérifier que TOUTES ces skills ont été complétées :
+
+```
+mcp__serena__read_memory
+  memory_file_name: "workflow-current.md"
+```
+
+### Checklist de prérequis (TOUTES doivent être ✅) :
+
+| # | Prérequis | Status requis | Si manquant |
+|---|-----------|---------------|-------------|
+| 1 | `/implement` | ✅ code écrit | STOP → exécuter `/implement` |
+| 2 | `/test-write` | ✅ tests écrits | STOP → exécuter `/test-write` |
+| 3 | `/test-run` | ✅ tous les tests passent | STOP → exécuter `/test-run` |
+| 4 | `/code-review` | ✅ **approuvé** (pas 🔄) | STOP → exécuter `/code-review` |
+| 5 | `/document` | ✅ documentation à jour | STOP → exécuter `/document` |
+| 6 | `/capitalize` | ✅ apprentissages sauvegardés | STOP → exécuter `/capitalize` |
+| 7 | `/roadmap-update --done` | ✅ tâche marquée done | STOP → exécuter `/roadmap-update --done` |
+
+### 🛑 SI UN PRÉREQUIS MANQUE :
+
+**NE PAS CONTINUER.** Afficher :
+
+```markdown
+⛔ **GATE PRE-MERGE BLOQUÉ**
+
+`/pre-merge` est la DERNIÈRE étape du workflow. Il reste X étapes avant :
+
+Les prérequis suivants ne sont pas remplis :
+- [ ] [prérequis manquant 1] ← prochaine étape à exécuter
+- [ ] [prérequis manquant 2]
+- [ ] ...
+
+→ **Action requise** : exécuter `/[skill manquante]` avant de revenir à `/pre-merge`
+```
+
+**Ne jamais contourner ce gate, même si l'utilisateur le demande sans avoir complété les étapes.**
+**Ne jamais proposer cette skill avant la fin du workflow complet.**
+
+---
+
 ## 0. Consultation SERENA
 
 ### Vérification préalable

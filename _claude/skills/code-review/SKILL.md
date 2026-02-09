@@ -373,13 +373,32 @@ mcp__serena__write_memory
 
 ## Transition vers la prochaine phase
 
-| Verdict | Prochaine skill |
-|---------|-----------------|
-| ✅ Approuvé | `/document` (puis capitalize → roadmap → merge) |
-| 🔄 Changements requis | Auteur corrige → Re-review |
-| Problèmes de tests | `/test-write` ou `/test-run` |
-| Bugs trouvés | `/debug` |
-| Architecture à revoir | `/architecture` |
+| Verdict | Prochaine skill | ⛔ INTERDIT |
+|---------|-----------------|-------------|
+| ✅ Approuvé | `/document` | `/pre-merge` (il reste 3 étapes !) |
+| 🔄 Changements requis | Voir boucle ci-dessous | `/pre-merge`, `/document` |
+| Problèmes de tests | `/test-write` → `/test-run` → re-review | `/pre-merge` |
+| Bugs trouvés | `/debug` → `/test-run` → re-review | `/pre-merge` |
+| Architecture à revoir | `/architecture` → `/implement` → ... → re-review | `/pre-merge` |
+
+### Boucle de rétroaction (🔄 Changements requis)
+
+Quand des corrections sont demandées, l'auteur doit :
+
+```
+1. /implement    ← Corriger le code
+       ↓
+2. /test-write   ← Ajouter/modifier les tests si nécessaire
+       ↓
+3. /test-run     ← Vérifier que tout passe
+       ↓
+4. /code-review  ← RE-REVIEW obligatoire
+       ↓
+   Si ✅ → /document
+   Si 🔄 → Recommencer la boucle
+```
+
+**⚠️ IMPORTANT** : On ne passe à `/document` qu'après un ✅ de la code-review.
 
 ---
 

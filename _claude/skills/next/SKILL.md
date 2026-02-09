@@ -15,6 +15,35 @@ Maintenir la **continuité du workflow** en rappelant le contexte et en proposan
 
 ---
 
+## ⛔ RÈGLES STRICTES DU WORKFLOW (INTERDICTIONS)
+
+### Ces règles sont IMPÉRATIVES et ne peuvent JAMAIS être contournées :
+
+1. **JAMAIS de commit/merge/PR avant d'avoir complété TOUTES les étapes de validation**
+   - L'ordre est : `/implement` → `/test-write` → `/test-run` → `/code-review` → `/document` → `/capitalize` → `/roadmap-update --done` → `/pre-merge`
+   - `/pre-merge` est la DERNIÈRE étape, JAMAIS avant
+
+2. **JAMAIS proposer une action qui saute des étapes**
+   - Si la dernière skill complétée est `/implement`, la prochaine est `/test-write` ou `/test-run`, JAMAIS `/pre-merge` ni "on commit ?"
+   - Si la dernière skill est `/code-review`, la prochaine est `/document`, JAMAIS `/pre-merge`
+
+3. **JAMAIS proposer un commit comme action finale d'une skill**
+   - Les commits incrémentaux pendant `/implement` sont OK
+   - Proposer "on commit et merge ?" comme conclusion d'une skill est INTERDIT
+   - Le commit/merge final est exclusivement géré par `/pre-merge`
+
+4. **JAMAIS ignorer le workflow-current.md dans SERENA**
+   - Toujours lire `workflow-current.md` avant de suggérer la prochaine étape
+   - Si le workflow indique des étapes non complétées, ne pas les sauter
+
+5. **TOUJOURS proposer EXACTEMENT la prochaine étape selon la matrice de transitions**
+   - Pas d'interprétation, pas de raccourcis, pas de "on peut simplifier"
+   - Même si le projet semble simple, le workflow complet s'applique
+
+### En cas de doute : consulter la matrice de transitions ci-dessous et proposer UNIQUEMENT l'étape suivante.
+
+---
+
 ## 0. Récupération du Contexte
 
 ### Lire l'état du workflow
@@ -95,24 +124,41 @@ Créez une branche feature avant de continuer l'implémentation.
 
 ## 2. Logique de Suggestion
 
-### Matrice de transitions
+### Matrice de transitions (flux principal)
 
-| Dernière skill complétée | Prochaine skill suggérée |
-|--------------------------|--------------------------|
-| `/analyze` | `/explore-options` ou `/architecture` (si simple) |
-| `/explore-options` | `/tech-choice` |
-| `/tech-choice` | `/roadmap-update --in-progress` puis `/architecture` |
-| `/architecture` | `/implement` |
-| `/implement` | `/test-write` ou `/test-run` |
-| `/test-write` | `/test-run` |
-| `/test-run` (✅) | `/code-review` |
-| `/test-run` (❌) | `/debug` |
-| `/debug` | `/test-run` |
-| `/code-review` (✅) | `/pre-merge` |
-| `/code-review` (🔄) | Corrections puis re-review |
-| `/pre-merge` | `/document` puis `/roadmap-update --done` |
-| `/roadmap-update --done` | `/capitalize` |
-| `/capitalize` | Workflow terminé ou `/post-mortem` |
+| Dernière skill complétée | Prochaine skill suggérée | ⛔ INTERDIT |
+|--------------------------|--------------------------|-------------|
+| `/analyze` | `/explore-options` ou `/architecture` (si simple) | Coder, commit |
+| `/explore-options` | `/tech-choice` | Implémenter |
+| `/tech-choice` | `/roadmap-update --in-progress` puis `/architecture` | Implémenter |
+| `/architecture` | `/implement` | - |
+| `/implement` | `/test-write` | `/pre-merge`, `/code-review`, `/commit` |
+| `/test-write` | `/test-run` | `/pre-merge`, `/code-review` |
+| `/test-run` (✅) | `/code-review` | `/pre-merge` (il reste 5 étapes !) |
+| `/test-run` (❌) | `/debug` | `/pre-merge` |
+| `/debug` | `/test-run` | `/pre-merge` |
+| `/code-review` (✅) | `/document` | `/pre-merge` (il reste 3 étapes !) |
+| `/code-review` (🔄) | Voir "Boucles de rétroaction" ci-dessous | `/pre-merge` |
+| `/document` | `/capitalize` | `/pre-merge` (il reste 2 étapes !) |
+| `/capitalize` | `/roadmap-update --done` | `/pre-merge` (il reste 1 étape !) |
+| `/roadmap-update --done` | `/pre-merge` ← SEUL moment autorisé | - |
+| `/pre-merge` | Workflow terminé ou `/post-mortem` | - |
+
+### Boucles de rétroaction (après /code-review 🔄)
+
+Quand une code-review demande des corrections, le workflow **revient en arrière** :
+
+| Type de correction demandée | Retour à | Puis |
+|-----------------------------|----------|------|
+| Corrections de code | `/implement` | → `/test-write` → `/test-run` → `/code-review` |
+| Tests manquants/insuffisants | `/test-write` | → `/test-run` → `/code-review` |
+| Tests échouent | `/debug` | → `/test-run` → `/code-review` |
+| Problème d'architecture | `/architecture` | → `/implement` → ... → `/code-review` |
+
+**⚠️ IMPORTANT** : Après CHAQUE boucle de correction, il faut :
+1. Repasser par `/test-run` pour valider
+2. Repasser par `/code-review` pour re-review
+3. SEULEMENT après ✅ de la re-review, continuer vers `/document`
 
 ---
 

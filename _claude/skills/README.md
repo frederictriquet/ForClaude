@@ -29,18 +29,35 @@ Chaque skill suit le **Single Responsibility Principle** :
 │          │   /architecture  │                                                │
 │          └──────────────────┘                                                │
 │                    │                                                         │
-│                    ▼                                                         │
-│          ┌──────────────────┐     ┌──────────────┐     ┌─────────────┐       │
-│          │   /implement     │ ◀──▶│ /test-write  │ ──▶ │  /test-run  │       │
-│          └──────────────────┘     └──────────────┘     └─────────────┘       │
-│                    │                                          │              │
-│                    │                    ┌─────────────────────┘              │
-│                    ▼                    ▼                                    │
-│          ┌──────────────────┐     ┌──────────┐                               │
-│          │   /code-review   │ ◀── │  /debug  │                               │
-│          └──────────────────┘     └──────────┘                               │
-│                    │                                                         │
-│                    ▼                                                         │
+│  ┌─────────────────┼─────────────────────────────────────────────────────┐   │
+│  │                 ▼              BOUCLE DE RÉTROACTION                  │   │
+│  │       ┌──────────────────┐                                            │   │
+│  │   ┌──▶│   /implement     │                                            │   │
+│  │   │   └────────┬─────────┘                                            │   │
+│  │   │            ▼                                                      │   │
+│  │   │   ┌──────────────────┐                                            │   │
+│  │   │   │   /test-write    │                                            │   │
+│  │   │   └────────┬─────────┘                                            │   │
+│  │   │            ▼                                                      │   │
+│  │   │   ┌──────────────────┐     ┌──────────┐                           │   │
+│  │   │   │   /test-run      │ ──▶ │  /debug  │ ──┐                       │   │
+│  │   │   └────────┬─────────┘ (❌) └──────────┘   │                       │   │
+│  │   │            │ (✅)                          │                       │   │
+│  │   │            ▼                               │                       │   │
+│  │   │   ┌──────────────────┐                     │                       │   │
+│  │   │   │   /code-review   │ ◀───────────────────┘                       │   │
+│  │   │   └────────┬─────────┘                                            │   │
+│  │   │            │                                                      │   │
+│  │   │     ┌──────┴──────┐                                               │   │
+│  │   │     │             │                                               │   │
+│  │   │    (✅)          (🔄 corrections requises)                         │   │
+│  │   │     │             │                                               │   │
+│  │   │     │             └───────────────────────────────────────────┐   │   │
+│  │   │     │                                                         │   │   │
+│  │   └─────┼─────────────────────────────────────────────────────────┘   │   │
+│  │         │  ⬆ Retour à /implement ou /test-write selon les corrections │   │
+│  └─────────┼─────────────────────────────────────────────────────────────┘   │
+│            ▼                                                                 │
 │          ┌──────────────────┐                                                │
 │          │    /document     │                                                │
 │          └──────────────────┘                                                │
@@ -68,6 +85,19 @@ Chaque skill suit le **Single Responsibility Principle** :
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
 ```
+
+## Boucles de Rétroaction
+
+Le workflow n'est **pas linéaire**. Après une code-review, on peut revenir en arrière :
+
+| Situation après /code-review | Retour à | Raison |
+|------------------------------|----------|--------|
+| 🔄 Corrections mineures de code | `/implement` | Modifier le code |
+| 🔄 Tests manquants ou insuffisants | `/test-write` | Ajouter des tests |
+| 🔄 Tests échouent après correction | `/test-run` → `/debug` | Valider les corrections |
+| 🔄 Architecture à revoir | `/architecture` | Repenser la conception |
+
+**Après chaque boucle de correction** : repasser par `/test-run` puis `/code-review` avant de continuer.
 
 ## Skills Disponibles
 
@@ -263,6 +293,62 @@ Après chaque skill, vous verrez :
 /post-mortem incident de production du 15/01 --incident --blameless
   → Analyse complète, actions, leçons
 ```
+
+## ⛔ RÈGLES STRICTES — INTERDICTIONS ABSOLUES
+
+### Ces règles sont IMPÉRATIVES. Aucune exception, aucun raccourci.
+
+#### 1. ORDRE DU WORKFLOW : NON NÉGOCIABLE
+
+L'ordre de finalisation après implémentation est **fixe et obligatoire** :
+
+```
+/implement → /test-write → /test-run → /code-review → /document → /capitalize → /roadmap-update --done → /pre-merge
+```
+
+**`/pre-merge` est TOUJOURS la DERNIÈRE étape.** Aucune étape ne peut être sautée.
+
+#### 2. INTERDICTIONS EXPLICITES PAR SKILL
+
+| Après cette skill | ⛔ INTERDIT de proposer | ✅ Proposer à la place |
+|-------------------|------------------------|----------------------|
+| `/implement` | `/pre-merge`, `/code-review`, commit | `/test-write` |
+| `/test-write` | `/pre-merge`, `/code-review` | `/test-run` |
+| `/test-run` ✅ | `/pre-merge` (il reste 5 étapes !) | `/code-review` |
+| `/code-review` ✅ | `/pre-merge` (il reste 3 étapes !) | `/document` |
+| `/code-review` 🔄 | `/pre-merge`, `/document` | Boucle de correction |
+| `/document` | `/pre-merge` (il reste 2 étapes !) | `/capitalize` |
+| `/capitalize` | `/pre-merge` (il reste 1 étape !) | `/roadmap-update --done` |
+
+#### 3. BOUCLES DE RÉTROACTION OBLIGATOIRES
+
+Après une `/code-review` 🔄 (changements requis), **TOUJOURS** :
+
+```
+corrections → /test-write (si tests à ajouter) → /test-run → /code-review (re-review)
+```
+
+**On ne passe à `/document` qu'après un ✅ de la code-review.**
+
+#### 4. RÈGLES D'OR
+
+> **Si tu hésites entre proposer la prochaine skill du workflow ou proposer un commit/merge : TOUJOURS proposer la prochaine skill.**
+
+> **Après des corrections demandées en code-review : TOUJOURS repasser par /test-run puis /code-review.**
+
+#### 5. VÉRIFICATION DES PRÉREQUIS
+
+Chaque skill DOIT vérifier `workflow-current.md` au début et refuser de s'exécuter si les prérequis ne sont pas remplis :
+
+| Skill | Prérequis obligatoires |
+|-------|----------------------|
+| `/test-run` | `/implement` et `/test-write` ✅ |
+| `/code-review` | `/test-run` ✅ |
+| `/document` | `/code-review` ✅ |
+| `/capitalize` | `/document` ✅ |
+| `/pre-merge` | TOUTES les étapes précédentes ✅ |
+
+---
 
 ## Bonnes Pratiques
 
