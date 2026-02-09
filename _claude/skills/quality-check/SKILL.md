@@ -17,6 +17,38 @@ S'assurer que le code respecte les **standards de qualité** (linting, formatage
 
 ---
 
+## 0. Vérification des Prérequis (OBLIGATOIRE)
+
+### Consulter l'état du workflow
+
+```
+mcp__serena__read_memory
+  memory_file_name: "workflow-current.md"
+```
+
+### Prérequis pour cette skill
+
+| # | Prérequis | Status requis | Si manquant |
+|---|-----------|---------------|-------------|
+| 1 | `/implement` | ✅ code écrit | STOP → `/implement` |
+| 2 | `/test-run` | ✅ tests passent | STOP → `/test-run` |
+
+### 🛑 SI PRÉREQUIS NON REMPLIS
+
+**NE PAS CONTINUER.** Afficher :
+
+```markdown
+⛔ **PRÉREQUIS MANQUANT**
+
+`/quality-check` requiert que `/test-run` soit ✅.
+
+→ **Action requise** : Exécuter `/test-run` d'abord
+
+⚠️ Ordre obligatoire : implement → test-write → test-run → quality-check
+```
+
+---
+
 ## ⛔ POSITION DANS LE WORKFLOW
 
 ### Cette skill est OBLIGATOIRE entre /test-run et /code-review
@@ -25,21 +57,14 @@ S'assurer que le code respecte les **standards de qualité** (linting, formatage
 /implement → /test-write → /test-run → /quality-check → /code-review → ...
 ```
 
-### Prérequis
-
-| Skill | Requis |
-|-------|--------|
-| `/implement` | ✅ Code écrit |
-| `/test-run` | ✅ Tests passent |
-
 ### ⛔ INTERDIT
 
 - Exécuter `/code-review` sans avoir passé `/quality-check`
-- Proposer `/pre-merge` depuis cette skill
+- Proposer `/pre-merge` depuis cette skill (il reste 5 étapes !)
 
 ---
 
-## 0. Détection de l'Environnement
+## 1. Détection de l'Environnement
 
 ### Identifier les outils du projet
 

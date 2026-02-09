@@ -399,20 +399,31 @@ Closes #issue (si applicable)
 
 ## Transition vers la prochaine phase
 
-| Situation | Prochaine skill | ⛔ INTERDIT |
-|-----------|-----------------|-------------|
-| Tests manquants | `/test-write` | `/pre-merge`, `/code-review` |
-| Tests à exécuter | `/test-run` | `/pre-merge`, `/code-review` |
-| Bug découvert | `/debug` | `/pre-merge` |
-
 ### ⛔ ORDRE STRICT après /implement
 
 ```
-/implement → /test-write → /test-run → /code-review → /document → /capitalize → /roadmap-update --done → /pre-merge
+/implement → /test-write → /test-run → /quality-check → /code-review → /document → /capitalize → /roadmap-update --done → /pre-merge
 ```
 
-**JAMAIS proposer `/code-review` ou `/pre-merge` directement après `/implement`.**
-Les tests DOIVENT être écrits et exécutés AVANT la review.
+**JAMAIS proposer `/code-review`, `/quality-check` ou `/pre-merge` directement après `/implement`.**
+
+### Choix de la prochaine skill
+
+| Situation | Prochaine skill | ⛔ INTERDIT |
+|-----------|-----------------|-------------|
+| **Nouveaux fichiers/fonctions créés** | `/test-write` (OBLIGATOIRE) | `/test-run`, `/code-review` |
+| **Tests existants couvrent déjà les changements** | `/test-write` pour ajouter des cas | `/code-review` |
+| **Correction mineure dans code existant testé** | `/test-run` pour vérifier non-régression | `/code-review` |
+| **Bug découvert pendant l'implémentation** | `/debug` | `/pre-merge` |
+
+### ⚠️ Quand peut-on aller directement à `/test-run` ?
+
+**SEULEMENT SI** :
+1. Les tests existants couvrent DÉJÀ les changements effectués
+2. Aucune nouvelle fonction/méthode n'a été créée
+3. Le changement est une correction mineure
+
+**DANS LE DOUTE** : Toujours proposer `/test-write` d'abord.
 
 ---
 
@@ -442,7 +453,10 @@ mcp__serena__edit_memory
 
 **Tests** : [Existent / À écrire / À exécuter]
 
-→ **Prochaine étape** : `/test-write` ou `/test-run [pattern]`
+→ **Prochaine étape** : `/test-write [fichiers]`
+  (ou `/test-run` UNIQUEMENT si les tests existants couvrent déjà les changements)
+
+⚠️ Il reste 7 étapes avant le merge : test-write → test-run → quality-check → code-review → document → capitalize → roadmap-update → pre-merge
 
 💡 `/next` pour voir le workflow complet
 ---

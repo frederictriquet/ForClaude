@@ -17,7 +17,31 @@ Exécuter les tests de manière **efficace**, analyser les échecs, et fournir u
 
 ---
 
-## 0. Consultation SERENA
+## 0. Vérification des Prérequis (OBLIGATOIRE)
+
+### Consulter l'état du workflow
+
+```
+mcp__serena__read_memory
+  memory_file_name: "workflow-current.md"
+```
+
+### Prérequis pour cette skill
+
+| # | Prérequis | Status requis | Si manquant |
+|---|-----------|---------------|-------------|
+| 1 | `/implement` | ✅ code écrit | STOP → `/implement` |
+| 2 | `/test-write` | ✅ ou tests existants | ⚠️ Vérifier couverture |
+
+### ⚠️ Vérification de la couverture
+
+Avant d'exécuter les tests, vérifier :
+- Les nouveaux fichiers/fonctions ont-ils des tests correspondants ?
+- Si NON → proposer `/test-write` d'abord
+
+---
+
+## 0b. Consultation SERENA
 
 ### Avant l'exécution
 
@@ -298,9 +322,23 @@ mcp__serena__write_memory
 
 | Résultat | Prochaine skill | ⛔ INTERDIT |
 |----------|-----------------|-------------|
-| ❌ Tests échouent | `/debug` | `/pre-merge`, `/code-review` |
-| 🟡 Couverture insuffisante | `/test-write` | `/pre-merge`, `/code-review` |
-| ✅ Tous les tests passent | `/quality-check` | `/pre-merge`, `/code-review` (il reste 6 étapes !) |
+| ❌ Tests échouent | `/debug` → `/test-run` | `/quality-check`, `/code-review`, `/pre-merge` |
+| 🟡 Couverture < 70% | `/test-write` → `/test-run` | `/quality-check`, `/code-review`, `/pre-merge` |
+| ⚠️ Couverture 70-85% | `/quality-check` (avec avertissement) | `/pre-merge` |
+| ✅ Couverture > 85% | `/quality-check` | `/pre-merge`, `/code-review` (il reste 6 étapes !) |
+
+### 🛑 Blocage si couverture insuffisante
+
+Si la couverture est < 70% sur les **nouveaux fichiers**, c'est un blocage :
+
+```markdown
+⛔ **COUVERTURE INSUFFISANTE**
+
+Les nouveaux fichiers n'ont pas assez de tests :
+- `fichier.ts` : 45% de couverture (minimum requis : 70%)
+
+→ **Action requise** : `/test-write [fichier]` pour ajouter des tests
+```
 
 ---
 

@@ -38,7 +38,41 @@ STOP ! Propose `/refactor` d'abord, puis reviens documenter.
 
 ---
 
-## 0. Consultation SERENA
+## 0. Vérification des Prérequis (OBLIGATOIRE)
+
+### Consulter l'état du workflow
+
+```
+mcp__serena__read_memory
+  memory_file_name: "workflow-current.md"
+```
+
+### Prérequis pour cette skill
+
+| # | Prérequis | Status requis | Si manquant |
+|---|-----------|---------------|-------------|
+| 1 | `/quality-check` | ✅ lint et types OK | STOP → `/quality-check` |
+| 2 | `/code-review` | ✅ **approuvé** (pas 🔄) | STOP → `/code-review` |
+
+### 🛑 SI PRÉREQUIS NON REMPLIS
+
+**NE PAS CONTINUER.** Afficher :
+
+```markdown
+⛔ **PRÉREQUIS MANQUANT**
+
+`/document` requiert que `/code-review` soit ✅ approuvé.
+
+Status actuel de `/code-review` : [status]
+
+→ **Action requise** :
+  - Si 🔄 : Effectuer les corrections → `/test-run` → `/quality-check` → `/code-review`
+  - Si non exécuté : Exécuter `/code-review` d'abord
+```
+
+---
+
+## 0b. Consultation SERENA
 
 ### Contexte du projet
 

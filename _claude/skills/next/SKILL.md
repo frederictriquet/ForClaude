@@ -132,17 +132,20 @@ Créez une branche feature avant de continuer l'implémentation.
 | `/explore-options` | `/tech-choice` | Implémenter |
 | `/tech-choice` | `/roadmap-update --in-progress` puis `/architecture` | Implémenter |
 | `/architecture` | `/implement` | - |
-| `/implement` | `/test-write` | `/pre-merge`, `/code-review`, `/commit` |
+| `/implement` | `/test-write` (par défaut) | `/pre-merge`, `/code-review`, `/quality-check` |
+| `/implement` (si tests existants couvrent) | `/test-run` (exception) | `/pre-merge`, `/code-review` |
 | `/test-write` | `/test-run` | `/pre-merge`, `/code-review` |
-| `/test-run` (✅) | `/quality-check` | `/pre-merge`, `/code-review` (il reste 6 étapes !) |
-| `/test-run` (❌) | `/debug` | `/pre-merge` |
+| `/test-run` (✅ couverture > 85%) | `/quality-check` | `/pre-merge`, `/code-review` (6 étapes restantes) |
+| `/test-run` (⚠️ couverture 70-85%) | `/quality-check` avec avertissement | `/pre-merge`, `/code-review` |
+| `/test-run` (🟡 couverture < 70%) | `/test-write` (BLOQUANT) | `/quality-check`, `/code-review`, `/pre-merge` |
+| `/test-run` (❌ tests échouent) | `/debug` | `/quality-check`, `/code-review`, `/pre-merge` |
 | `/debug` | `/test-run` | `/pre-merge` |
-| `/quality-check` (✅) | `/code-review` | `/pre-merge` (il reste 5 étapes !) |
+| `/quality-check` (✅) | `/code-review` | `/pre-merge` (5 étapes restantes) |
 | `/quality-check` (❌) | Corriger → `/test-run` → `/quality-check` | `/code-review`, `/pre-merge` |
-| `/code-review` (✅) | `/document` | `/pre-merge` (il reste 3 étapes !) |
-| `/code-review` (🔄) | Voir "Boucles de rétroaction" ci-dessous | `/pre-merge` |
-| `/document` | `/capitalize` | `/pre-merge` (il reste 2 étapes !) |
-| `/capitalize` | `/roadmap-update --done` | `/pre-merge` (il reste 1 étape !) |
+| `/code-review` (✅) | `/document` | `/pre-merge` (3 étapes restantes) |
+| `/code-review` (🔄) | Voir "Boucles de rétroaction" ci-dessous | `/pre-merge`, `/document` |
+| `/document` | `/capitalize` | `/pre-merge` (2 étapes restantes) |
+| `/capitalize` | `/roadmap-update --done` | `/pre-merge` (1 étape restante) |
 | `/roadmap-update --done` | `/pre-merge` ← SEUL moment autorisé | - |
 | `/pre-merge` | Workflow terminé ou `/post-mortem` | - |
 

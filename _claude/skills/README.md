@@ -344,18 +344,38 @@ corrections → /test-write (si tests à ajouter) → /test-run → /code-review
 
 > **Après des corrections demandées en code-review : TOUJOURS repasser par /test-run puis /code-review.**
 
-#### 5. VÉRIFICATION DES PRÉREQUIS
+#### 5. VÉRIFICATION DES PRÉREQUIS (GATES)
 
 Chaque skill DOIT vérifier `workflow-current.md` au début et refuser de s'exécuter si les prérequis ne sont pas remplis :
 
-| Skill | Prérequis obligatoires |
-|-------|----------------------|
-| `/test-run` | `/implement` et `/test-write` ✅ |
-| `/quality-check` | `/test-run` ✅ |
-| `/code-review` | `/quality-check` ✅ |
-| `/document` | `/code-review` ✅ |
-| `/capitalize` | `/document` ✅ |
-| `/pre-merge` | TOUTES les étapes précédentes ✅ |
+| Skill | Prérequis obligatoires | Gate implémenté ? |
+|-------|----------------------|-------------------|
+| `/test-run` | `/implement` ✅, `/test-write` ✅ ou tests existants | ✅ OUI |
+| `/quality-check` | `/test-run` ✅ | ✅ OUI |
+| `/code-review` | `/quality-check` ✅ | ✅ OUI |
+| `/document` | `/code-review` ✅ (approuvé, pas 🔄) | ✅ OUI |
+| `/capitalize` | `/document` ✅ | ✅ OUI |
+| `/roadmap-update --done` | `/capitalize` ✅ | ✅ OUI |
+| `/pre-merge` | TOUTES les étapes précédentes ✅ | ✅ OUI |
+
+#### 6. FORMAT STANDARD DE GATE
+
+Chaque skill avec prérequis inclut cette vérification :
+
+```markdown
+## 0. Vérification des Prérequis (OBLIGATOIRE)
+
+### Consulter l'état du workflow
+mcp__serena__read_memory("workflow-current.md")
+
+### Prérequis pour cette skill
+| # | Prérequis | Status requis |
+|---|-----------|---------------|
+| 1 | /[skill-précédente] | ✅ |
+
+### 🛑 SI PRÉREQUIS NON REMPLIS
+STOP ! Afficher le message d'erreur et proposer l'étape manquante.
+```
 
 ---
 

@@ -37,9 +37,39 @@ STOP ! Note le feedback et laisse l'auteur corriger. Ou propose `/debug` si c'es
 
 ---
 
+## 0. Vérification des Prérequis (OBLIGATOIRE)
+
+### Consulter l'état du workflow
+
+```
+mcp__serena__read_memory
+  memory_file_name: "workflow-current.md"
+```
+
+### Prérequis pour cette skill
+
+| # | Prérequis | Status requis | Si manquant |
+|---|-----------|---------------|-------------|
+| 1 | `/test-run` | ✅ tous les tests passent | STOP → `/test-run` |
+| 2 | `/quality-check` | ✅ lint et types OK | STOP → `/quality-check` |
+
+### 🛑 SI PRÉREQUIS NON REMPLIS
+
+**NE PAS CONTINUER.** Afficher :
+
+```markdown
+⛔ **PRÉREQUIS MANQUANT**
+
+`/code-review` requiert que `/quality-check` soit ✅.
+
+→ **Action requise** : Exécuter `/quality-check` d'abord
+
+⚠️ Ordre obligatoire : test-run → quality-check → code-review
+```
+
 ---
 
-## 0. Consultation SERENA
+## 0b. Consultation SERENA
 
 ### Contexte du projet
 

@@ -17,7 +17,46 @@ Maintenir la **traçabilité** des tâches et garder la roadmap à jour pour ref
 
 ---
 
-## 0. Localisation de la Roadmap
+## 0. Vérification des Prérequis (pour --done uniquement)
+
+### ⚠️ Si le flag `--done` est utilisé, vérifier les prérequis
+
+```
+mcp__serena__read_memory
+  memory_file_name: "workflow-current.md"
+```
+
+### Prérequis pour `--done`
+
+| # | Prérequis | Status requis | Si manquant |
+|---|-----------|---------------|-------------|
+| 1 | `/code-review` | ✅ approuvé | STOP → `/code-review` |
+| 2 | `/document` | ✅ | STOP → `/document` |
+| 3 | `/capitalize` | ✅ | STOP → `/capitalize` |
+
+### 🛑 SI PRÉREQUIS NON REMPLIS (avec --done)
+
+**NE PAS CONTINUER.** Afficher :
+
+```markdown
+⛔ **PRÉREQUIS MANQUANT pour --done**
+
+`/roadmap-update --done` est l'avant-dernière étape du workflow.
+Il reste des étapes à compléter avant :
+
+- [ ] `/document` - [status]
+- [ ] `/capitalize` - [status]
+
+→ **Action requise** : Compléter les étapes manquantes
+
+⚠️ **Rappel** : document → capitalize → roadmap-update --done → pre-merge
+```
+
+### Note : `--in-progress` et `--blocked` n'ont pas de prérequis
+
+---
+
+## 0b. Localisation de la Roadmap
 
 ### Fichiers typiques de roadmap
 
