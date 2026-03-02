@@ -80,6 +80,24 @@ Context7 injecte la documentation à jour des librairies directement dans le con
 
 ---
 
+## EU Regulations MCP — Réglementations européennes
+
+50 réglementations européennes interrogeables directement depuis Claude : GDPR, AI Act, DORA, NIS2, MiFID II, eIDAS… Texte intégral et verbatim (pas de paraphrase IA), mis à jour quotidiennement depuis EUR-Lex. Inclut 709 mappages vers ISO 27001:2022 et NIST CSF 2.0.
+
+Pas de clé API, disponible en remote sans installation :
+
+```bash
+# Remote (aucune installation)
+claude mcp add eu-regs --transport http https://eu-regulations-mcp.vercel.app/mcp
+
+# Ou local
+claude mcp add eu-regs -- npx @ansvar/eu-regulations-mcp
+```
+
+→ [GitHub Ansvar-Systems/EU_compliance_MCP](https://github.com/Ansvar-Systems/EU_compliance_MCP)
+
+---
+
 ## Autres outils notables
 
 | Outil | Description | Lien |

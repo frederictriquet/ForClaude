@@ -13,7 +13,7 @@ Documentation synthétique, orientée terrain.
 | [Workflow de skills](docs/skills-workflow.md) | Processus de développement structuré étape par étape |
 | [Prompting](docs/prompting.md) | Écrire des prompts qui fonctionnent |
 | [Frameworks](docs/frameworks.md) | Superpowers et autres frameworks de workflow |
-| [Sécurité](docs/securite.md) | AIDA — pentesting piloté par Claude |
+| [Sécurité](docs/securite.md) | AIDA, Kali MCP, Burp, ZAP, Snyk, Shannon — outils de sécurité |
 
 ## Démarrage rapide
 

@@ -68,6 +68,46 @@ docker compose up
 
 ---
 
+## Burp Suite MCP — Test web interactif
+
+MCP officiel PortSwigger, compatible avec la Community Edition (gratuite). Expose le proxy, l'historique de trafic, le scanner, le Repeater et Collaborator directement à Claude.
+
+**Installation :** via le BApp Store dans Burp Suite → chercher "MCP Server". Le serveur écoute sur `127.0.0.1:9876`.
+
+```bash
+claude mcp add burp --transport http http://127.0.0.1:9876/mcp
+```
+
+→ [PortSwigger/mcp-server](https://github.com/PortSwigger/mcp-server)
+
+---
+
+## OWASP ZAP MCP — Scan automatisé
+
+Pas de MCP officiel ZAP, mais des implémentations communautaires sérieuses. La plus notable expose spider, active scan, import OpenAPI et génération de rapports.
+
+```bash
+claude mcp add zap -- npx mcp-zap-server
+```
+
+→ [dtkmn/mcp-zap-server](https://github.com/dtkmn/mcp-zap-server)
+
+---
+
+## Snyk MCP — Analyse de vulnérabilités
+
+MCP officiel Snyk, disponible depuis la CLI v1.1296.2. Scans de dépendances, vulnérabilités et analyse de code directement depuis Claude.
+
+> ⚠️ Nécessite un compte Snyk (gratuit pour les projets open source).
+
+```bash
+claude mcp add snyk -- snyk mcp
+```
+
+→ [snyk.io — Snyk MCP](https://snyk.io/articles/secure-ai-coding-with-snyk-now-supporting-model-context-protocol-mcp/)
+
+---
+
 ## Risques liés aux MCP non fiables
 
 Un serveur MCP malveillant ou compromis a accès à tout ce que Claude peut faire dans ta session : lire des fichiers, exécuter des commandes, exfiltrer des données. Des vulnérabilités critiques ont été découvertes en 2025-2026 dans Claude Code lui-même via ce vecteur (CVE-2025-59536, CVE-2026-21852, depuis patchées).
