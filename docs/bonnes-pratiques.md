@@ -18,25 +18,53 @@ Le fichier `CLAUDE.md` à la racine du projet est lu automatiquement par Claude 
 
 ## Committer souvent
 
-**Pourquoi c'est critique :** quand Claude réalise qu'il a fait une erreur, il peut décider de restaurer un fichier avec `git checkout`. Si tu n'as pas committé, tu perds tout le travail intermédiaire.
+**Pourquoi c'est critique :** les commits fréquents protègent dans les deux sens.
 
-- Committer après chaque unité logique de travail, même petite
-- Les commits fréquents créent des points de sauvegarde exploitables
-- Le travail non commité est invisible aux mécanismes de récupération de Claude
+- **Si Claude se plante** : il peut décider de restaurer un fichier avec `git checkout`. Sans commit récent, tu perds tout le travail intermédiaire.
+- **Si tu veux annuler** : un `git reset` ou `git checkout` te ramène à un état connu. Sans commit, tu n'as aucun filet.
+
+Committer après chaque unité logique de travail, même petite. Le travail non commité est invisible aux mécanismes de récupération — les tiens comme ceux de Claude.
 
 ---
 
-## Développement vertical avant horizontal
+## Développement incrémental
 
-**Le principe :** construire une feature complète de bout en bout (de l'entrée jusqu'à la visualisation) avant d'en ajouter d'autres.
+Deux principes complémentaires pour garder Claude efficace sur des projets complexes.
+
+### 1. Vertical slicing — une feature complète avant la suivante
+
+Implémenter une fonctionnalité de bout en bout à travers toutes les couches (entrée, traitement, persistance, affichage) avant de passer à la suivante — plutôt que de développer toute une couche technique en premier.
+
+- ✅ Frontend + backend + DB d'un seul cas d'usage, puis le suivant
+- ❌ Toute la couche DB d'abord, puis tout le backend, puis tout le frontend
+
+### 2. Périmètre réduit — éviter les features cross-cutting trop tôt
+
+Ne pas commencer par les fonctionnalités qui touchent à tout (parallélisation, cache global, refonte de l'auth…). Elles sont difficiles à modifier une fois en place car elles s'ancrent dans toute l'architecture.
 
 **Exemple :** pour une application de monitoring avec plusieurs scanners, un pipeline multi-étages et une visualisation Grafana :
-- ✅ Faire fonctionner **un seul scanner** sur tout le pipeline, puis paralléliser, puis ajouter les autres scanners
-- ❌ Commencer par la parallélisation ou par tous les scanners en même temps
+- ✅ Faire fonctionner **un seul scanner** sur tout le pipeline → paralléliser → ajouter les autres scanners
+- ❌ Commencer par la parallélisation ou implémenter tous les scanners en même temps
 
-**Pourquoi ça marche :** les décisions d'architecture prises trop tôt touchent beaucoup de fichiers et deviennent difficiles à modifier. Claude perd le fil, oublie des changements, laisse des incohérences.
+**Pourquoi c'est important avec Claude :** les tâches qui touchent beaucoup de fichiers simultanément augmentent le risque que Claude perde le fil, oublie des changements ou laisse des incohérences. Un périmètre réduit = un contexte maîtrisé.
 
 > Commencer simple → valider → complexifier.
+
+---
+
+## Gérer les conversations longues
+
+Plus une conversation s'allonge, plus Claude risque de perdre le fil : oubli de contraintes établies en début de session, contradictions avec des décisions antérieures, répétition de travail déjà fait.
+
+**Signaux d'alerte :**
+- Claude propose quelque chose qu'il avait explicitement exclu plus tôt
+- Les réponses deviennent moins précises ou moins cohérentes avec le contexte du projet
+- Claude "réinvente" une convention déjà établie
+
+**Que faire :**
+- Ouvrir une nouvelle conversation pour les tâches indépendantes
+- Résumer le contexte essentiel en début de nouvelle session (un bon `CLAUDE.md` aide beaucoup)
+- Pour les longues sessions, rappeler les contraintes clés avant une étape importante : *"rappel : on n'utilise pas directement la DB, uniquement via db_query.sh"*
 
 ---
 
@@ -44,20 +72,21 @@ Le fichier `CLAUDE.md` à la racine du projet est lu automatiquement par Claude 
 
 Lorsqu'on utilise des sous-agents (via le tool `Agent`), un piège fréquent : **l'agent confirme avoir créé un fichier, mais ne l'a pas fait.**
 
-Les agents peuvent "simuler" une réponse sans avoir réellement appelé les outils d'écriture. Cela arrive même après des rappels répétés.
+Les agents peuvent produire une confirmation textuelle sans avoir réellement appelé les outils d'écriture. Cela arrive même après des rappels explicites, et même en répétant l'instruction plusieurs fois.
+
+**Quand utiliser un sous-agent :** tâches parallélisables et indépendantes (recherche, analyse de plusieurs fichiers, génération de contenu isolé). Pas pour une séquence d'écritures interdépendantes où l'ordre et la vérification sont critiques.
 
 **Comment s'en prémunir :**
 
-1. **Spécifier explicitement dans le prompt** que l'agent *doit* utiliser `Write tool` ou `Edit tool` — pas d'autre alternative
-2. **Vérifier systématiquement** avec un `Read` ou `Glob` après la réponse de l'agent
-3. **Ne jamais faire confiance à une confirmation textuelle** ("J'ai créé le fichier X")
-4. **Restreindre les outils** de l'agent à ce qui est nécessaire pour limiter la confusion
+1. **Forcer les outils dans le prompt** — nommer explicitement `Write tool` ou `Edit tool`, pas d'autre alternative acceptée
+2. **Vérifier systématiquement** avec `Read` ou `Glob` après la réponse — ne jamais faire confiance à une confirmation textuelle
+3. **Décomposer** — un agent qui crée 10 fichiers d'un coup est plus susceptible d'en rater ; préférer des agents ciblés sur une tâche précise
 
-Exemple de formulation efficace dans le prompt d'un sous-agent :
+Formulation efficace dans le prompt d'un sous-agent :
 ```
 Tu DOIS créer chaque fichier en appelant le Write tool.
 Ne confirme pas avoir créé un fichier si tu n'as pas appelé Write tool.
-Après chaque Write tool, continue avec le fichier suivant.
+Vérifie avec Read tool que le fichier existe avant de passer au suivant.
 ```
 
 ---
@@ -99,3 +128,47 @@ Cela permet également d'avoir des sessions **mono-objectif** : une session char
 Utiliser les hooks git (pre-commit) pour forcer le linting avant chaque commit. C'est un checkpoint naturel : le code est censé être dans un état stable à ce moment.
 
 **Éviter** les hooks `PostToolUse` (après chaque `Write`/`Edit`) pour lancer des tests ou du linting : le code est souvent dans un état intermédiaire invalide entre deux étapes d'un refactoring, ce qui génère du bruit plutôt que du signal et peut désorienter Claude en plein milieu d'une modification.
+
+---
+
+## Git worktrees
+
+Les git worktrees permettent de travailler sur plusieurs branches simultanément dans des répertoires séparés — utile pour isoler une tâche sans polluer la branche principale.
+
+Le flag `-w` de Claude Code crée le worktree et lance la session dedans en une commande, avec nettoyage automatique si aucun changement :
+
+```bash
+claude -w             # worktree avec nom généré
+claude -w ma-feature  # worktree nommé
+```
+
+La création manuelle (`git worktree add`) ne vaut le coup que si tu as besoin de contrôler précisément la branche de base ou l'emplacement.
+
+**Limite importante :** si le projet partage des ressources d'état global — base de données unique, migrations (Drizzle, Alembic…), fichiers de lock — lancer deux sessions Claude en parallèle dans deux worktrees peut provoquer des conflits de migration ou des états incohérents. Dans ce cas, les worktrees restent utiles mais en séquentiel, pas en parallèle.
+
+---
+
+## Specs avant code
+
+Plutôt que de demander directement l'implémentation d'un besoin, passer par une étape intermédiaire : demander à Claude de rédiger une liste de specs, les valider, puis demander l'implémentation basée sur ces specs.
+
+```
+1. "Voici mon besoin : [...]. Écris une liste de specs."
+2. [tu lis, tu corriges, tu valides]
+3. "Implémente en te basant sur ces specs."
+```
+
+**Pourquoi c'est plus efficace :** en développant directement, Claude interprète le besoin et fait des choix implicites que tu ne découvres qu'en voyant le résultat. Les specs rendent ces choix visibles et corrigeables avant que le code soit écrit. Ça évite les allers-retours coûteux et les malentendus enfouis dans l'implémentation.
+
+C'est aussi utile pour toi : l'exercice de lire des specs force à réaliser ce qu'on n'avait pas précisé.
+
+---
+
+## Décrire le cas d'usage, pas juste le symptôme
+
+Pour signaler un bug, décrire **le cas d'usage et le résultat attendu** est systématiquement plus efficace que "ça ne marche pas".
+
+- ❌ "La fonction de login ne marche pas, corrige-la"
+- ✅ "Quand je soumets le formulaire avec `user@Example.COM`, je suis redirigé vers la page d'erreur. Le comportement attendu est une connexion réussie — les emails ne devraient pas être sensibles à la casse"
+
+Avec le symptôme seul, Claude doit deviner le comportement attendu et peut "corriger" dans la mauvaise direction. Avec le cas d'usage complet, il peut raisonner sur l'écart entre ce qui se passe et ce qui devrait se passer — ce qui est exactement la nature d'un bug.

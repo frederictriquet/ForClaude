@@ -12,6 +12,8 @@ Documentation synthétique, orientée terrain.
 | [Agents spécialisés](docs/agents.md) | Créer des agents efficaces, éviter les pièges courants |
 | [Workflow de skills](docs/skills-workflow.md) | Processus de développement structuré étape par étape |
 | [Prompting](docs/prompting.md) | Écrire des prompts qui fonctionnent |
+| [Frameworks](docs/frameworks.md) | Superpowers et autres frameworks de workflow |
+| [Sécurité](docs/securite.md) | AIDA — pentesting piloté par Claude |
 
 ## Démarrage rapide
 

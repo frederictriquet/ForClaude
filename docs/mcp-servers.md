@@ -85,7 +85,46 @@ Context7 injecte la documentation à jour des librairies directement dans le con
 | Outil | Description | Lien |
 |-------|-------------|------|
 | **snip** | Gestionnaire de snippets pour Claude | [GitHub](https://github.com/edouard-claude/snip) |
-| **firefox-devtools-mcp** | Accès aux DevTools Firefox depuis Claude | [GitHub](https://github.com/freema/firefox-devtools-mcp) |
+| **firefox-devtools-mcp** | Contrôle de Firefox depuis Claude (voir ci-dessous) | [GitHub](https://github.com/freema/firefox-devtools-mcp) |
+
+---
+
+## Firefox DevTools MCP — Contrôle du navigateur
+
+Serveur MCP qui connecte Claude à Firefox via WebDriver BiDi. Claude peut naviguer, interagir avec les pages, surveiller le réseau et lire la console — sans intervention manuelle.
+
+**Cas d'usage typiques :**
+- Tester une interface en décrivant le scénario à Claude
+- Inspecter les requêtes réseau d'une application web
+- Déboguer des erreurs console directement depuis la session Claude
+
+**Installation :**
+```bash
+claude mcp add firefox-devtools npx firefox-devtools-mcp
+# ou en global :
+claude mcp add firefox-devtools npx firefox-devtools-mcp --scope user
+```
+
+Il existe un fork [`padenot/firefox-devtools-mcp`](https://github.com/padenot/firefox-devtools-mcp) maintenu par un développeur Mozilla, qui ajoute la gestion des préférences Firefox, l'accès au contexte privilégié et la gestion d'extensions WebExtension — utile uniquement si tu travailles sur Firefox lui-même.
+
+→ [GitHub freema/firefox-devtools-mcp](https://github.com/freema/firefox-devtools-mcp)
+
+---
+
+## Chrome DevTools MCP — Contrôle de Chrome
+
+L'équivalent Chrome du Firefox DevTools MCP, maintenu par l'équipe Chrome DevTools officielle. 29 outils couvrant l'automatisation, la navigation, les performances (Lighthouse), le réseau et le débogage.
+
+**Installation :**
+```bash
+# Via CLI
+claude mcp add chrome-devtools --scope user npx chrome-devtools-mcp@latest
+
+# Via marketplace (MCP + skills)
+/plugin marketplace add ChromeDevTools/chrome-devtools-mcp
+```
+
+→ [GitHub ChromeDevTools/chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp)
 
 ---
 
