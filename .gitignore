@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# Éditeurs
+*.swp
+*.swo
+.vscode/
+
+# Settings locaux
+.claude/settings.local.json
+_claude/settings.json
+
+# SERENA — config et mémoires locales
+.serena/
