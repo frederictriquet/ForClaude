@@ -1,3 +1,5 @@
+🇫🇷 Français · [🇬🇧 English](README.en.md)
+
 # Guide Claude Code
 
 Bonnes pratiques et outils pour développeurs utilisant Claude Code.
