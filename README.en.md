@@ -12,10 +12,11 @@ Concise, field-oriented documentation.
 | [Best Practices](docs/bonnes-pratiques.en.md) | CLAUDE.md, frequent commits, incremental development |
 | [MCP Servers ⭐](docs/mcp-servers.en.md) | SERENA, Context7, RTK — what actually changes the game |
 | [Specialized Agents](docs/agents.en.md) | Creating effective agents, avoiding common pitfalls |
-| [Skills Workflow](docs/skills-workflow.en.md) | Structured development process step by step |
+| [Skills](docs/skills.en.md) | Built-in Claude Code skills |
 | [Prompting](docs/prompting.en.md) | Writing prompts that work |
 | [Frameworks](docs/frameworks.en.md) | Superpowers and other workflow frameworks |
 | [Security](docs/securite.en.md) | AIDA, Kali MCP, Burp, ZAP, Snyk, Shannon — security tools |
+| [Hooks](docs/hooks.en.md) | Audio notifications, system events, configuration |
 
 ## Quick Start
 

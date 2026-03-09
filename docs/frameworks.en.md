@@ -12,3 +12,16 @@ What sets it apart: plans are broken down into **2-5 minute tasks** before any i
 ```
 
 → [GitHub obra/superpowers](https://github.com/obra/superpowers)
+
+## BMAD Method
+
+AI-driven agile framework centered on human-machine collaboration rather than full autonomy. Provides 12+ specialized agent personas (PM, architect, dev, UX, scrum master…) and 34+ structured workflows covering the entire development lifecycle.
+
+What sets it apart: **Party Mode** lets multiple personas collaborate within a single session, and planning complexity automatically adapts to project scale (bug fix → enterprise system).
+
+**Installation:**
+```
+npx bmad-method install
+```
+
+→ [GitHub bmad-code-org/BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD)

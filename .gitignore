@@ -12,3 +12,4 @@ _claude/settings.json
 
 # SERENA — config et mémoires locales
 .serena/
+*.docx
