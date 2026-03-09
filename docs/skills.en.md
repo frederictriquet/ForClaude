@@ -1,6 +1,6 @@
 # Skills
 
-Built-in skills available in Claude Code.
+Skills are reusable prompts invocable via `/skill-name`, built-in or custom — see the [official docs](https://docs.anthropic.com/en/docs/claude-code/skills).
 
 ## Reference
 
