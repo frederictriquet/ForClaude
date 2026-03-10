@@ -12,8 +12,8 @@ notify() {
     local title="$1" subtitle="$2" body="$3"
     if [[ "$OSTYPE" == "darwin"* ]]; then
         osascript - "$title" "$subtitle" "$body" <<'EOF'
-on run {title, subtitle, body}
-    display notification body with title title subtitle subtitle
+on run argv
+    display notification (item 3 of argv) with title (item 1 of argv) subtitle (item 2 of argv)
 end run
 EOF
     elif command -v notify-send &> /dev/null; then

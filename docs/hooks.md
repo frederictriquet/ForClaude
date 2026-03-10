@@ -36,7 +36,7 @@ Dans `.claude/settings.json` (projet) ou `~/.claude/settings.json` (global) :
         "hooks": [
           {
             "type": "command",
-            "command": "_claude/hooks/notify.sh"
+            "command": "~/.claude/hooks/notify.sh"
           }
         ]
       }
@@ -47,7 +47,7 @@ Dans `.claude/settings.json` (projet) ou `~/.claude/settings.json` (global) :
         "hooks": [
           {
             "type": "command",
-            "command": "_claude/hooks/notify.sh"
+            "command": "~/.claude/hooks/notify.sh"
           }
         ]
       }
