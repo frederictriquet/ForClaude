@@ -36,7 +36,7 @@ In `.claude/settings.json` (project) or `~/.claude/settings.json` (global):
         "hooks": [
           {
             "type": "command",
-            "command": "_claude/hooks/notify.sh"
+            "command": "~/.claude/hooks/notify.sh"
           }
         ]
       }
@@ -47,7 +47,7 @@ In `.claude/settings.json` (project) or `~/.claude/settings.json` (global):
         "hooks": [
           {
             "type": "command",
-            "command": "_claude/hooks/notify.sh"
+            "command": "~/.claude/hooks/notify.sh"
           }
         ]
       }
@@ -58,7 +58,7 @@ In `.claude/settings.json` (project) or `~/.claude/settings.json` (global):
 
 ## Example: Audio + Desktop Notifications
 
-The `_claude/hooks/notify.sh` script displays a system notification and plays a sound. It works on Linux and macOS without modification.
+The `~/.claude/hooks/notify.sh` script displays a system notification and plays a sound. It works on Linux and macOS without modification.
 
 ```bash
 #!/bin/bash

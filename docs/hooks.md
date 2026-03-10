@@ -58,7 +58,7 @@ Dans `.claude/settings.json` (projet) ou `~/.claude/settings.json` (global) :
 
 ## Exemple : notifications audio + écran
 
-Le script `_claude/hooks/notify.sh` affiche une notification système et joue un son. Il est portable Linux/macOS sans modification.
+Le script `~/.claude/hooks/notify.sh` affiche une notification système et joue un son. Il est portable Linux/macOS sans modification.
 
 ```bash
 #!/bin/bash
