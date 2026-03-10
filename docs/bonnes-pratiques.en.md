@@ -197,9 +197,16 @@ By default, Claude Code navigates code with `grep` — text-based search, slow (
 | PHP | intelephense | `npm i -g intelephense` | `php-lsp` |
 | Kotlin | kotlin-language-server | GitHub releases | `kotlin-lsp` |
 | Swift | sourcekit-lsp | Included with Xcode | `swift-lsp` |
+| Svelte | svelte-language-server | auto-installed via npx | `svelte-lsp@agentic-utils` ¹ |
 | Lua | lua-language-server | GitHub releases | `lua-lsp` |
 
 All plugins install via `claude plugin install <plugin-name>`. Installation is **project-level** (`.claude/plugins/`), not global — you need to install the plugin in each project where you want to use it.
+
+¹ Plugin from the third-party marketplace [agentic-utils/claude-plugins](https://github.com/agentic-utils/claude-plugins). Add the marketplace first:
+```
+/plugin marketplace add https://github.com/agentic-utils/claude-plugins
+/plugin install svelte-lsp@agentic-utils
+```
 
 **Warning:** an installed but disabled plugin won't register its LSP server at startup.
 
