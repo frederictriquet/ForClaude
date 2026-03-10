@@ -8,3 +8,4 @@ Suivi des fonctionnalités notables ajoutées à Claude Code, avec date de déco
 |------|---------------|-------------|-----|
 | 2026-03-09 | `/simplify` | Skill built-in qui review le code modifié pour détecter les opportunités de réutilisation, améliorer la qualité et l'efficacité, puis corrige automatiquement les problèmes trouvés. | [Skills](skills.md#référence) |
 | 2026-03-09 | `/batch` | Skill built-in qui orchestre des changements à grande échelle en parallèle. Décompose le travail en 5-30 unités, chaque agent travaille dans un worktree git isolé et ouvre une PR. | [Skills](skills.md#référence) |
+| 2026-03-10 | LSP | Navigation sémantique du code (définitions, références, types, hiérarchie d'appels) via Language Server Protocol. ~50ms au lieu de 30-60s avec grep, auto-correction des erreurs après édition. | [Bonnes pratiques](bonnes-pratiques.md#lsp--navigation-sémantique-du-code) |

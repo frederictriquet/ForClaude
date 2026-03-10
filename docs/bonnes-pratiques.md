@@ -164,6 +164,54 @@ C'est aussi utile pour toi : l'exercice de lire des specs force à réaliser ce 
 
 ---
 
+## LSP : navigation sémantique du code
+
+Par défaut, Claude Code navigue le code avec `grep` — recherche textuelle, lente (~30-60s) et parfois imprécise. Le mode LSP (Language Server Protocol) lui donne accès à la même intelligence sémantique qu'un IDE : définitions, références, types, hiérarchie d'appels.
+
+**Bénéfices concrets :**
+- Requêtes en ~50ms au lieu de 30-60s
+- Localisation exacte (fichier + ligne) avec 100% de précision
+- Auto-correction après édition : le LSP détecte les erreurs aux sites d'appel et Claude les corrige dans le même tour
+
+**Activation :**
+
+1. Ajouter dans `~/.claude/settings.json` :
+```json
+{ "env": { "ENABLE_LSP_TOOL": "1" } }
+```
+2. Installer le language server (`npm i -g pyright`, etc.)
+3. Installer le plugin : `claude plugin install <nom>`
+4. Activer le plugin et redémarrer Claude Code
+
+**Serveurs LSP disponibles :**
+
+| Langage | Serveur LSP | Installation binaire | Plugin Claude |
+|---------|------------|---------------------|---------------|
+| Python | pyright | `npm i -g pyright` | `pyright-lsp` |
+| TypeScript/JS | typescript-language-server | `npm i -g typescript-language-server typescript` | `typescript-lsp` |
+| Go | gopls | `go install golang.org/x/tools/gopls@latest` | `gopls-lsp` |
+| Rust | rust-analyzer | `rustup component add rust-analyzer` | `rust-analyzer-lsp` |
+| Java | jdtls | `brew install jdtls` / `apt install eclipse-jdt-ls` | `jdtls-lsp` |
+| C/C++ | clangd | `brew install llvm` / `apt install clangd` | `clangd-lsp` |
+| C# | csharp-ls | `dotnet tool install -g csharp-ls` | `csharp-lsp` |
+| PHP | intelephense | `npm i -g intelephense` | `php-lsp` |
+| Kotlin | kotlin-language-server | GitHub releases | `kotlin-lsp` |
+| Swift | sourcekit-lsp | Inclus avec Xcode | `swift-lsp` |
+| Lua | lua-language-server | GitHub releases | `lua-lsp` |
+
+Tous les plugins s'installent via `claude plugin install <nom-plugin>`. L'installation est **au niveau du projet** (`.claude/plugins/`), pas globale — il faut donc installer le plugin dans chaque projet où on veut l'utiliser.
+
+**Attention :** un plugin installé mais désactivé n'enregistre pas son serveur LSP au démarrage.
+
+**Conseil CLAUDE.md :** ajouter une instruction pour que Claude privilégie le LSP :
+```
+Utilise LSP pour la navigation dans le code.
+Réserve grep aux recherches textuelles où LSP ne peut pas aider.
+Vérifie les diagnostics après chaque édition.
+```
+
+---
+
 ## Décrire le cas d'usage, pas juste le symptôme
 
 Pour signaler un bug, décrire **le cas d'usage et le résultat attendu** est systématiquement plus efficace que "ça ne marche pas".

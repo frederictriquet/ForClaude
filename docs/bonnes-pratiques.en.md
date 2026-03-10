@@ -164,6 +164,54 @@ It is also useful for you: the exercise of reading specs forces you to realize w
 
 ---
 
+## LSP: Semantic Code Navigation
+
+By default, Claude Code navigates code with `grep` — text-based search, slow (~30-60s) and sometimes imprecise. LSP mode (Language Server Protocol) gives it the same semantic intelligence as an IDE: definitions, references, types, call hierarchy.
+
+**Concrete benefits:**
+- Queries in ~50ms instead of 30-60s
+- Exact location (file + line) with 100% accuracy
+- Auto-correction after edits: LSP detects errors at call sites and Claude fixes them in the same turn
+
+**Setup:**
+
+1. Add to `~/.claude/settings.json`:
+```json
+{ "env": { "ENABLE_LSP_TOOL": "1" } }
+```
+2. Install the language server (`npm i -g pyright`, etc.)
+3. Install the plugin: `claude plugin install <name>`
+4. Enable the plugin and restart Claude Code
+
+**Available LSP servers:**
+
+| Language | LSP Server | Binary install | Claude plugin |
+|----------|-----------|----------------|---------------|
+| Python | pyright | `npm i -g pyright` | `pyright-lsp` |
+| TypeScript/JS | typescript-language-server | `npm i -g typescript-language-server typescript` | `typescript-lsp` |
+| Go | gopls | `go install golang.org/x/tools/gopls@latest` | `gopls-lsp` |
+| Rust | rust-analyzer | `rustup component add rust-analyzer` | `rust-analyzer-lsp` |
+| Java | jdtls | `brew install jdtls` / `apt install eclipse-jdt-ls` | `jdtls-lsp` |
+| C/C++ | clangd | `brew install llvm` / `apt install clangd` | `clangd-lsp` |
+| C# | csharp-ls | `dotnet tool install -g csharp-ls` | `csharp-lsp` |
+| PHP | intelephense | `npm i -g intelephense` | `php-lsp` |
+| Kotlin | kotlin-language-server | GitHub releases | `kotlin-lsp` |
+| Swift | sourcekit-lsp | Included with Xcode | `swift-lsp` |
+| Lua | lua-language-server | GitHub releases | `lua-lsp` |
+
+All plugins install via `claude plugin install <plugin-name>`. Installation is **project-level** (`.claude/plugins/`), not global — you need to install the plugin in each project where you want to use it.
+
+**Warning:** an installed but disabled plugin won't register its LSP server at startup.
+
+**CLAUDE.md tip:** add an instruction so Claude prioritizes LSP:
+```
+Use LSP for code navigation.
+Use grep only for text/pattern searches where LSP cannot help.
+Check diagnostics after editing code.
+```
+
+---
+
 ## Describe the Use Case, Not Just the Symptom
 
 When reporting a bug, describing **the use case and the expected result** is systematically more effective than "it doesn't work".
