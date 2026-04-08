@@ -12,4 +12,9 @@ _claude/settings.json
 
 # SERENA — config et mémoires locales
 .serena/
+
+# Build et environnement Python
+build/
+.venv/
 *.docx
+*.patched
